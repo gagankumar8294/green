@@ -1,16 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./Navbar.module.css";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme } = useContext(ThemeContext); // Get current theme
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} ${theme === "dark" ? styles.dark : styles.light}`}>
       {/* ======= Left Section (Large Screen) ======= */}
       <div className={styles.leftSection}>
-        {/* 📞 Phone Icon SVG */}
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.phoneIcon} viewBox="0 0 24 24" fill="currentColor">
           <path d="M6.62 10.79a15.09 15.09 0 006.59 6.59l2.2-2.2a1 1 0 011-.27 11.36 11.36 0 003.56.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.27 1z" />
         </svg>
@@ -20,7 +21,6 @@ export default function Navbar() {
       {/* ======= Mobile Left Section ======= */}
       <div className={styles.mobileLeft}>
         <button onClick={toggleMenu} className={styles.menuButton}>
-          {/* ☰ / ✖ Toggle Icon */}
           {menuOpen ? (
             <svg xmlns="http://www.w3.org/2000/svg" className={styles.menuIcon} viewBox="0 0 24 24" fill="currentColor">
               <path d="M18.3 5.71a1 1 0 00-1.41 0L12 10.59 7.11 5.7A1 1 0 105.7 7.11L10.59 12l-4.9 4.89a1 1 0 101.41 1.41L12 13.41l4.89 4.89a1 1 0 001.41-1.41L13.41 12l4.89-4.89a1 1 0 000-1.4z" />
@@ -41,19 +41,16 @@ export default function Navbar() {
 
       {/* ======= Right Section (Icons) ======= */}
       <div className={styles.rightSection}>
-        {/* 🔍 Search Icon */}
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
 
-        {/* 👤 User Icon */}
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <circle cx="12" cy="7" r="4" />
           <path d="M5.5 21a8.38 8.38 0 0113 0" />
         </svg>
 
-        {/* 🛒 Cart Icon */}
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <circle cx="9" cy="21" r="1" />
           <circle cx="20" cy="21" r="1" />
@@ -62,30 +59,23 @@ export default function Navbar() {
       </div>
 
       {/* ======= Mobile Menu ======= */}
-<div className={`${styles.mobileMenu} ${menuOpen ? styles.showMenu : ""}`}>
-  <button onClick={toggleMenu} className={styles.closeButton}>
-    {/* ✖ Close Icon inside Sidebar */}
-    <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={styles.menuIcon}
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M18.3 5.71a1 1 0 00-1.41 0L12 10.59 7.11 5.7A1 1 0 105.7 7.11L10.59 12l-4.9 4.89a1 1 0 101.41 1.41L12 13.41l4.89 4.89a1 1 0 001.41-1.41L13.41 12l4.89-4.89a1 1 0 000-1.4z" />
-            </svg>
-  </button>
-  <ul>
-    <li>Home</li>
-    <li>Categories</li>
-    <li>Shop</li>
-    <li>Blog</li>
-    <li>About Us</li>
-    <li>Contact Us</li>
-    <li>Wedding Favours</li>
-    <li>Corporate Gifting</li>
-  </ul>
-</div>
-
+      <div className={`${styles.mobileMenu} ${menuOpen ? styles.showMenu : ""} ${theme === "dark" ? styles.darkMenu : ""}`}>
+        <button onClick={toggleMenu} className={styles.closeButton}>
+          <svg xmlns="http://www.w3.org/2000/svg" className={styles.menuIcon} viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.3 5.71a1 1 0 00-1.41 0L12 10.59 7.11 5.7A1 1 0 105.7 7.11L10.59 12l-4.9 4.89a1 1 0 101.41 1.41L12 13.41l4.89 4.89a1 1 0 001.41-1.41L13.41 12l4.89-4.89a1 1 0 000-1.4z" />
+          </svg>
+        </button>
+        <ul>
+          <li>Home</li>
+          <li>Categories</li>
+          <li>Shop</li>
+          <li>Blog</li>
+          <li>About Us</li>
+          <li>Contact Us</li>
+          <li>Wedding Favours</li>
+          <li>Corporate Gifting</li>
+        </ul>
+      </div>
     </nav>
   );
 }

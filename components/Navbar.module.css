@@ -3,14 +3,24 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 40px;
-  background-color: #ffffff; /* Dark background for white icons */
-  color: #000000;
-  border-bottom: 1px solid #ffffff;
+  /* border-bottom: 1px solid #ddd; */
   position: relative;
   z-index: 1000;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Left Section (Desktop) */
+/* Light and Dark Themes */
+.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dark {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+/* Left Section */
 .leftSection {
   display: flex;
   align-items: center;
@@ -20,16 +30,15 @@
 .phoneIcon {
   width: 20px;
   height: 20px;
-  fill: rgb(15, 15, 15);
+  fill: currentColor;
 }
 
 .callText {
   font-size: 15px;
   font-weight: 500;
-  color: #000000;
 }
 
-/* Center Logo (Desktop) */
+/* Center Section */
 .centerSection {
   text-align: center;
 }
@@ -39,7 +48,7 @@
   width: auto;
 }
 
-/* Right Section (Desktop) */
+/* Right Section */
 .rightSection {
   display: flex;
   align-items: center;
@@ -49,16 +58,16 @@
 .icon {
   width: 22px;
   height: 22px;
-  fill: rgb(0, 0, 0);
+  stroke: currentColor;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .icon:hover {
   opacity: 0.7;
 }
 
-/* ======= Mobile Styles ======= */
+/* ======= Mobile ======= */
 .mobileLeft {
   display: none;
   align-items: center;
@@ -66,7 +75,7 @@
 }
 
 .menuButton {
-  /* background: white; */
+  background: none;
   border: none;
   cursor: pointer;
 }
@@ -74,8 +83,8 @@
 .menuIcon {
   width: 26px;
   height: 26px;
-  fill: rgb(0, 0, 0);
-  transition: 0.3s ease;
+  fill: currentColor;
+  transition: opacity 0.3s ease;
 }
 
 .menuIcon:hover {
@@ -102,6 +111,11 @@
   z-index: 999;
 }
 
+.darkMenu {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
 .mobileMenu ul {
   list-style: none;
   padding: 0;
@@ -110,21 +124,20 @@
 .mobileMenu li {
   padding: 15px 25px;
   font-size: 18px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid rgba(150, 150, 150, 0.2);
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .mobileMenu li:hover {
-  background-color: #b4c5b0;
-  color: rgb(92, 175, 9);
+  background-color: rgba(100, 100, 100, 0.1);
 }
 
 .showMenu {
   left: 0;
 }
 
-/* ======= Responsive Breakpoints ======= */
+/* ======= Responsive ======= */
 @media screen and (max-width: 1024px) {
   .leftSection,
   .centerSection {
@@ -135,19 +148,7 @@
     display: flex;
   }
 
-  .rightSection {
-    gap: 15px;
-  }
-
   .navbar {
     padding: 10px 20px;
   }
-}
-
-/* Common icon styling */
-.icon,
-.phoneIcon,
-.menuIcon {
-  fill: rgb(0, 0, 0);   /* Ensures all SVG icons are white */
-  transition: fill 0.3s ease;
 }
