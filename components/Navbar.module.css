@@ -1,0 +1,153 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 40px;
+  background-color: #ffffff; /* Dark background for white icons */
+  color: #000000;
+  border-bottom: 1px solid #ffffff;
+  position: relative;
+  z-index: 1000;
+}
+
+/* Left Section (Desktop) */
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phoneIcon {
+  width: 20px;
+  height: 20px;
+  fill: rgb(15, 15, 15);
+}
+
+.callText {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Center Logo (Desktop) */
+.centerSection {
+  text-align: center;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+}
+
+/* Right Section (Desktop) */
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  fill: rgb(0, 0, 0);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.icon:hover {
+  opacity: 0.7;
+}
+
+/* ======= Mobile Styles ======= */
+.mobileLeft {
+  display: none;
+  align-items: center;
+  gap: 15px;
+}
+
+.menuButton {
+  /* background: white; */
+  border: none;
+  cursor: pointer;
+}
+
+.menuIcon {
+  width: 26px;
+  height: 26px;
+  fill: rgb(0, 0, 0);
+  transition: 0.3s ease;
+}
+
+.menuIcon:hover {
+  opacity: 0.7;
+}
+
+.mobileLogo {
+  height: 45px;
+  width: auto;
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #000000;
+  padding-top: 70px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease;
+  z-index: 999;
+}
+
+.mobileMenu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mobileMenu li {
+  padding: 15px 25px;
+  font-size: 18px;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mobileMenu li:hover {
+  background-color: #b4c5b0;
+  color: rgb(92, 175, 9);
+}
+
+.showMenu {
+  left: 0;
+}
+
+/* ======= Responsive Breakpoints ======= */
+@media screen and (max-width: 1024px) {
+  .leftSection,
+  .centerSection {
+    display: none;
+  }
+
+  .mobileLeft {
+    display: flex;
+  }
+
+  .rightSection {
+    gap: 15px;
+  }
+
+  .navbar {
+    padding: 10px 20px;
+  }
+}
+
+/* Common icon styling */
+.icon,
+.phoneIcon,
+.menuIcon {
+  fill: rgb(0, 0, 0);   /* Ensures all SVG icons are white */
+  transition: fill 0.3s ease;
+}
