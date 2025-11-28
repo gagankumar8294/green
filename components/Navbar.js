@@ -31,12 +31,12 @@ export default function Navbar() {
             </svg>
           )}
         </button>
-        <img src="/logo.png" alt="Logo" className={styles.mobileLogo} />
+        <img src="/logo.webp" alt="Logo" className={styles.mobileLogo} />
       </div>
 
       {/* ======= Center Section (Logo) ======= */}
       <div className={styles.centerSection}>
-        <img src="/logo.png" alt="Logo" className={styles.logo} />
+        <img src="/logo.webp" alt="Logo" className={styles.logo} />
       </div>
 
       {/* ======= Right Section (Icons) ======= */}
