@@ -1,7 +1,10 @@
 import Navbar from "../../components/Navbar";
 import { ThemeProvider } from "../../context/ThemeContext";
 import ThemeToggle from "../../components/ToggleTheme";
+import AuthProvider from "../../context/AuthContex";
 import './globals.css'
+import SecondaryNav from "../../components/SecondaryNav";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,11 +15,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ThemeProvider>
-          <Navbar />
-          {children}
-          <ThemeToggle />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <Navbar />
+            <SecondaryNav />
+            <Breadcrumb />
+            {children}
+            <ThemeToggle />
+          </ThemeProvider>
+        </AuthProvider>
+        
       </body>
     </html>
   );

@@ -1,12 +1,40 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
+import { useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const { theme } = useContext(ThemeContext); // Get current theme
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const [user, setUser] = useState(null);
+
+
+  useEffect(() => {
+  fetch("http://localhost:3200/api/auth/me", {
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) setUser(data.user);
+      
+    });
+}, []);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
   return (
     <nav className={`${styles.navbar} ${theme === "dark" ? styles.dark : styles.light}`}>
@@ -46,10 +74,56 @@ export default function Navbar() {
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
 
-        <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-          <circle cx="12" cy="7" r="4" />
-          <path d="M5.5 21a8.38 8.38 0 0113 0" />
-        </svg>
+<div className={styles.rightSection}>
+        
+        {user ? (
+          <div className={styles.userWrapper} ref={dropdownRef}>
+            <div
+              className={styles.userSection}
+              onClick={() => setDropdownOpen((prev) => !(prev))}
+            >
+              <img
+                src={user.image}
+                alt="User"
+                className={styles.userImage}
+              />
+
+              <div className={styles.userData}>
+                <span className={styles.userName}>{user.name}</span>
+                <span className={styles.userEmail}>{user.email}</span>
+              </div>
+            </div>
+
+            {/* DROPDOWN */}
+            {dropdownOpen && (
+              <div className={`${styles.dropdown} ${theme}`}>
+                <button
+                  className={styles.logoutBtn}
+                  onClick={() =>
+                    (window.location.href =
+                      "http://localhost:3200/api/auth/logout")
+                  }
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <a href="http://localhost:3200/api/auth/google" className={styles.loginBtn}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="12" cy="7" r="4" />
+              <path d="M5.5 21a8.38 8.38 0 0113 0" />
+            </svg>
+          </a>
+        )}
+      </div>
+
 
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <circle cx="9" cy="21" r="1" />

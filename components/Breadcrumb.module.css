@@ -1,0 +1,25 @@
+.breadcrumbWrapper {
+  padding: 24px;
+  text-align: center; /* center breadcrumb */
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.path {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.path a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.pageTitle {
+  margin-top: 6px;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
