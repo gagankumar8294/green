@@ -1,0 +1,209 @@
+/* -------------------------
+   PAGE WRAPPER
+-------------------------- */
+.pageWrapper {
+  display: flex;
+  width: 100%;
+  background: #111;
+  color: #fff;
+}
+
+/* -------------------------
+   DESKTOP SIDEBAR
+-------------------------- */
+.sidebar {
+  width: 260px;
+  background: #1a1a1a;
+  padding: 20px;
+  border-right: 1px solid #333;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.sidebarTitle {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+/* CATEGORY BUTTONS */
+.categoriesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.categoryBtn {
+  padding: 10px 12px;
+  border: 1px solid #444;
+  background: #222;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  color: white;
+}
+
+.categoryBtn:hover {
+  background: #333;
+}
+
+.activeCategory {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+/* PRICE FILTER */
+.priceFilter {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.priceFilter input {
+  padding: 8px;
+  border-radius: 6px;
+  background: #222;
+  border: 1px solid #333;
+  color: white;
+}
+
+.closeSidebar {
+  display: none;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  background: #222;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* -------------------------
+   MAIN CONTENT
+-------------------------- */
+.mainContent {
+  flex: 1;
+  padding: 20px;
+}
+
+.topBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.searchBox {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #222;
+  color: white;
+}
+
+.sortBox {
+  padding: 10px;
+  border-radius: 6px;
+  background: #222;
+  border: 1px solid #333;
+  color: white;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.card {
+  background: #1e1e1e;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.noResults {
+  margin-top: 20px;
+  text-align: center;
+  color: #bbb;
+}
+
+/* -------------------------
+   MOBILE
+-------------------------- */
+.mobileTopBar {
+  display: none;
+}
+
+/* Breakpoint below 1024px */
+@media (max-width: 1024px) {
+
+  .pageWrapper {
+    flex-direction: column;
+  }
+
+  /* MOBILE TOP BAR */
+  .mobileTopBar {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #222;
+  }
+
+  .filterBtn {
+    padding: 10px 16px;
+    background: #222;
+    color: white;
+    border-radius: 6px;
+    border: 1px solid #444;
+  }
+
+  .mobileSort {
+    padding: 10px;
+    border-radius: 6px;
+    background: #222;
+    border: 1px solid #444;
+    color: white;
+  }
+
+  /* SIDEBAR BECOMES SLIDE-IN */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-100%);
+    z-index: 20;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .closeSidebar {
+    display: block;
+  }
+
+  /* BACKDROP */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
+
+  /* HIDE DESKTOP SEARCH BAR */
+  .topBar {
+    display: none;
+  }
+}
