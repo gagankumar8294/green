@@ -1,11 +1,16 @@
 /* -------------------------
+   THEME VARIABLES
+-------------------------- */
+
+
+/* -------------------------
    PAGE WRAPPER
 -------------------------- */
 .pageWrapper {
   display: flex;
   width: 100%;
-  background: #111;
-  color: #fff;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* -------------------------
@@ -13,14 +18,14 @@
 -------------------------- */
 .sidebar {
   width: 260px;
-  background: #1a1a1a;
+  background: var(--sidebar-bg);
   padding: 20px;
-  border-right: 1px solid #333;
+  border-right: 1px solid var(--sidebar-border);
   height: 100vh;
   position: sticky;
   top: 0;
   overflow-y: auto;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .sidebarTitle {
@@ -37,21 +42,23 @@
 
 .categoryBtn {
   padding: 10px 12px;
-  border: 1px solid #444;
-  background: #222;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
   border-radius: 6px;
   cursor: pointer;
   text-align: left;
-  color: white;
+  color: var(--text);
+  transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
 }
 
 .categoryBtn:hover {
-  background: #333;
+  background: var(--hover-bg);
 }
 
 .activeCategory {
-  background: #4caf50;
-  border-color: #4caf50;
+  background: var(--active-bg);
+  border-color: var(--active-border);
+  color: #fff;
 }
 
 /* PRICE FILTER */
@@ -65,9 +72,9 @@
 .priceFilter input {
   padding: 8px;
   border-radius: 6px;
-  background: #222;
-  border: 1px solid #333;
-  color: white;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text);
 }
 
 .closeSidebar {
@@ -75,9 +82,10 @@
   margin-top: 20px;
   padding: 10px;
   text-align: center;
-  background: #222;
+  background: var(--input-bg);
   border-radius: 6px;
   cursor: pointer;
+  color: var(--text);
 }
 
 /* -------------------------
@@ -98,17 +106,17 @@
   flex: 1;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #333;
-  background: #222;
-  color: white;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text);
 }
 
 .sortBox {
   padding: 10px;
   border-radius: 6px;
-  background: #222;
-  border: 1px solid #333;
-  color: white;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text);
 }
 
 /* GRID */
@@ -119,10 +127,11 @@
 }
 
 .card {
-  background: #1e1e1e;
+  background: var(--card-bg);
   padding: 12px;
   border-radius: 8px;
   text-align: center;
+  border: 1px solid var(--card-border);
 }
 
 .image {
@@ -135,7 +144,8 @@
 .noResults {
   margin-top: 20px;
   text-align: center;
-  color: #bbb;
+  color: var(--text);
+  opacity: 0.7;
 }
 
 /* -------------------------
@@ -147,7 +157,6 @@
 
 /* Breakpoint below 1024px */
 @media (max-width: 1024px) {
-
   .pageWrapper {
     flex-direction: column;
   }
@@ -157,24 +166,24 @@
     display: flex;
     justify-content: space-between;
     padding: 12px;
-    background: #1a1a1a;
-    border-bottom: 1px solid #222;
+    background: var(--sidebar-bg);
+    border-bottom: 1px solid var(--sidebar-border);
   }
 
   .filterBtn {
     padding: 10px 16px;
-    background: #222;
-    color: white;
+    background: var(--input-bg);
+    color: var(--text);
     border-radius: 6px;
-    border: 1px solid #444;
+    border: 1px solid var(--input-border);
   }
 
   .mobileSort {
     padding: 10px;
     border-radius: 6px;
-    background: #222;
-    border: 1px solid #444;
-    color: white;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text);
   }
 
   /* SIDEBAR BECOMES SLIDE-IN */

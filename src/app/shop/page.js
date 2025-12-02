@@ -96,7 +96,9 @@ export default function ProductsPage() {
       </div>
 
       {/* --------------------- SIDEBAR --------------------- */}
-      <div className={`${styles.sidebar} ${showSidebar ? styles.sidebarOpen : ""}`}>
+      <div className={`${styles.sidebar} ${showSidebar ? styles.sidebarOpen : ""}`}
+      style={{  }} // always rendered
+      >
         <h3 className={styles.sidebarTitle}>Categories</h3>
 
         <div className={styles.categoriesWrapper}>
