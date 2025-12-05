@@ -1,9 +1,13 @@
 'use client';
-
-import { useEffect, useState, useCallback } from "react";
 import styles from "./Products.module.css";
+import { useEffect, useState, useCallback } from "react";
+import { useCart } from "../../../context/CartContext";
+import { useContext } from "react";
+import { CartProvider } from "../../../context/CartContext";
 
 export default function ProductsPage() {
+
+  const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -181,6 +185,12 @@ export default function ProductsPage() {
                   <img src={p.mainImage} alt={p.name} className={styles.image} />
                   <h3>{p.name}</h3>
                   <p>₹{p.price}</p>
+                  <div 
+                    className={styles.addToCartBtn}
+                    onClick={() => addToCart(p)}
+                  >
+                    Add to Cart
+                  </div>
                 </div>
               ))}
         </div>

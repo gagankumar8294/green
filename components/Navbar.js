@@ -3,15 +3,19 @@ import React, { useState, useContext, useRef } from "react";
 import { useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { ThemeContext } from "../context/ThemeContext";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
+  const { cartCount } = useCart();
+  const [cartOpen, setCartOpen] = useState(false);
+const { cart } = useCart();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { theme } = useContext(ThemeContext); // Get current theme
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const [user, setUser] = useState(null);
-
 
   useEffect(() => {
   fetch("http://localhost:3200/api/auth/me", {
@@ -37,6 +41,7 @@ export default function Navbar() {
 
 
   return (
+    <>
     <nav className={`${styles.navbar} ${theme === "dark" ? styles.dark : styles.light}`}>
       {/* ======= Left Section (Large Screen) ======= */}
       <div className={styles.leftSection}>
@@ -125,11 +130,20 @@ export default function Navbar() {
       </div>
 
 
-        <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-          <circle cx="9" cy="21" r="1" />
-          <circle cx="20" cy="21" r="1" />
-          <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.98-1.7L23 6H6" />
-        </svg>
+        {/* CART ICON */}
+<div className={styles.cartIconWrapper} onClick={() => setCartOpen(true)}>
+  <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+    <circle cx="9" cy="21" r="1" />
+    <circle cx="20" cy="21" r="1" />
+    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.98-1.7L23 6H6" />
+  </svg>
+
+  {/* CART COUNT */}
+  {cart?.length > 0 && (
+    <span className={styles.cartCount}>{cart.length}</span>
+  )}
+</div>
+
       </div>
 
       {/* ======= Mobile Menu ======= */}
@@ -151,5 +165,29 @@ export default function Navbar() {
         </ul>
       </div>
     </nav>
+    {/* CART SIDEBAR */}
+<div className={`${styles.cartSidebar} ${cartOpen ? styles.open : ""} ${theme === "dark" ? styles.dark : styles.light}`}>
+  <button className={styles.closeCartBtn} onClick={() => setCartOpen(false)}>✕</button>
+
+  <h3 className={styles.cartTitle}>Your Cart</h3>
+
+  <div className={styles.cartItems}>
+    {(!cart || cart.length === 0) ? (
+      <p className={styles.emptyCart}>Your cart is empty</p>
+    ) : (
+      cart.map((item) => (
+        <div key={item._id} className={styles.cartItem}>
+          <img src={item.image} className={styles.cartItemImage} alt="" />
+
+          <div className={styles.cartItemInfo}>
+            <p className={styles.cartItemName}>{item.name}</p>
+            <p className={styles.cartItemPrice}>₹{item.price}</p>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+</div>
+</>
   );
 }

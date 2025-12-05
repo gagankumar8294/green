@@ -5,6 +5,7 @@ import AuthProvider from "../../context/AuthContex";
 import './globals.css'
 import SecondaryNav from "../../components/SecondaryNav";
 import Breadcrumb from "../../components/Breadcrumb";
+import { CartProvider } from "../../context/CartContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -17,11 +18,13 @@ export default function RootLayout({ children }) {
       <body>
         <AuthProvider>
           <ThemeProvider>
-            <Navbar />
-            <SecondaryNav />
-            <Breadcrumb />
-            {children}
-            <ThemeToggle />
+            <CartProvider>
+              <Navbar />
+              <SecondaryNav />
+              <Breadcrumb />
+              {children}
+              <ThemeToggle />
+            </CartProvider>
           </ThemeProvider>
         </AuthProvider>
         
