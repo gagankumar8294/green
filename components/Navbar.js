@@ -6,7 +6,6 @@ import { ThemeContext } from "../context/ThemeContext";
 import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
-  const { cartCount } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
 const { cart } = useCart();
 
