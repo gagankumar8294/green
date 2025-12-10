@@ -1,135 +1,166 @@
 "use client";
-import { post, get } from "../utils/api";
+
 import { createContext, useContext, useEffect, useState } from "react";
+import { post, get } from "../utils/api";
 import { AuthContext } from "./AuthContex";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const  { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
 
-  // Load cart from localStorage on first render
+  /* ======================================================
+     GUEST CART → LOAD FROM LOCALSTORAGE (ON FIRST LOAD)
+  ====================================================== */
   useEffect(() => {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
+    if (!user) {
+      const savedCart = localStorage.getItem("cart");
+      if (savedCart) {
+        setCart(JSON.parse(savedCart));
+      }
     }
-  }, []);
+  }, [user]);
 
-  // Save cart to localStorage when updated
+  /* ======================================================
+     SAVE GUEST CART TO LOCALSTORAGE
+  ====================================================== */
   useEffect(() => {
-    if(!user) {
+    if (!user) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart, user]);
 
-  // FETCH CART FROM BACKEND WHEN USER LOGS IN
+  /* ======================================================
+     FETCH CART FROM DB WHEN USER LOGS IN
+  ====================================================== */
   useEffect(() => {
-    if (user) fetchUserCart();
+    if (user) {
+      fetchUserCart();
+    }
   }, [user]);
 
   async function fetchUserCart() {
-    const res = await get("/cart");
-    if (res.success) setCart(res.cart || []);
+    try {
+      const res = await get(`/cart?userId=${user._id}`);
+      if (res.success) {
+        setCart(res.cart || []);
+      }
+    } catch (err) {
+      console.error("Fetch cart error:", err);
+    }
   }
 
-  // MERGE LOCAL CART → SERVER CART AFTER LOGIN
-  async function mergeCartOnLogin(localCart) {
+  /* ======================================================
+     MERGE LOCAL CART → DB AFTER LOGIN
+  ====================================================== */
+  async function mergeCartOnLogin() {
+    const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+
     if (localCart.length > 0) {
-      await post("/cart/merge", { items: localCart });
+      await post("/cart/merge", {
+        userId: user._id,
+        localCart,
+      });
       localStorage.removeItem("cart");
     }
+
     await fetchUserCart();
   }
 
-  // Call this when user logs in
-  const loginUser = async (userData) => {
-    setUser(userData);
-
-    const localCart = JSON.parse(localStorage.getItem("cart")) || [];
-    await mergeCartOnLogin(localCart);
-  };
-
-  // ADD TO CART
+  /* ======================================================
+     ADD TO CART
+  ====================================================== */
   const addToCart = async (product) => {
-    // Logged-in user → send to backend
-// console.log("Sending to backend:", {
-//   productId: product._id, quantity: 1, user
-// });
+    // ✅ Guest user
     if (!user) {
-  console.log("Guest user, storing cart locally");
-
-  setCart((prev) => {
-    const exists = prev.find((item) => item._id === product._id);
-
-    if (exists) {
-      return prev.map((item) =>
-        item._id === product._id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
+      setCart((prev) => {
+        const exists = prev.find((i) => i._id === product._id);
+        if (exists) {
+          return prev.map((i) =>
+            i._id === product._id
+              ? { ...i, quantity: i.quantity + 1 }
+              : i
+          );
+        }
+        return [...prev, { ...product, quantity: 1 }];
+      });
+      return;
     }
 
-    return [...prev, { ...product, quantity: 1 }];
-  });
-
-  return;  // Do NOT close function with an extra };
-}
-
-
-  // Logged-in user → send to backend
+    // ✅ Logged-in user
     const res = await post("/cart/add", {
-      userId: user._id,        // required by your backend
-      product: {               // backend expects entire product object
+      userId: user._id,
+      product: {
         _id: product._id,
         name: product.name,
         price: product.price,
-        mainImage: product.mainImage
+        mainImage: product.mainImage,
       },
-      quantity: 1
+      quantity: 1,
     });
 
-    if (res.success) setCart(res.cart);
+    if (res.success) {
+      setCart(res.cart);
+    }
   };
 
-  // REMOVE FROM CART
-  const removeFromCart = async (id) => {
+  /* ======================================================
+     REMOVE FROM CART
+  ====================================================== */
+  const removeFromCart = async (productId) => {
     if (!user) {
-      setCart((prev) => prev.filter((item) => item._id !== id));
+      setCart((prev) => prev.filter((i) => i._id !== productId));
       return;
     }
-    const res = await post("/cart/remove", { productId: id });
-    if (res.success) setCart(res.cart);
+
+    const res = await post("/cart/remove", {
+      userId: user._id,
+      productId,
+    });
+
+    if (res.success) {
+      setCart(res.cart);
+    }
   };
 
-  // UPDATE QUANTITY
-  const updateQuantity = async (id, qty) => {
+  /* ======================================================
+     UPDATE QUANTITY
+  ====================================================== */
+  const updateQuantity = async (productId, qty) => {
     if (!user) {
       setCart((prev) =>
-        prev.map((item) =>
-          item._id === id ? { ...item, quantity: qty } : item
+        prev.map((i) =>
+          i._id === productId ? { ...i, quantity: qty } : i
         )
       );
       return;
     }
+
     const res = await post("/cart/update", {
-      productId: id,
-      quantity: qty,
+      userId: user._id,
+      productId,
+      qty,
     });
 
-    if (res.success) setCart(res.cart);
+    if (res.success) {
+      setCart(res.cart.items || res.cart);
+    }
   };
 
+  /* ======================================================
+     CLEAR CART
+  ====================================================== */
   const clearCart = async () => {
     if (!user) {
       setCart([]);
+      localStorage.removeItem("cart");
       return;
     }
 
-    const res = await post("/cart/clear");
-    if (res.success) setCart([]);
-  }
+    await post("/cart/clear", { userId: user._id });
+    setCart([]);
+  };
 
   return (
     <CartContext.Provider
@@ -139,12 +170,11 @@ export function CartProvider({ children }) {
         removeFromCart,
         updateQuantity,
         clearCart,
-        loginUser,
-        user,
-        cartCount: Array.isArray(cart)
-  ? cart.reduce((total, item) => total + item.quantity, 0)
-  : 0,
-
+        mergeCartOnLogin,
+        cartCount: cart.reduce(
+          (total, item) => total + item.quantity,
+          0
+        ),
       }}
     >
       {children}

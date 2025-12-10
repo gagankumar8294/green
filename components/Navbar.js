@@ -7,7 +7,7 @@ import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
-const { cart } = useCart();
+  const { cart } = useCart();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -78,8 +78,8 @@ const { cart } = useCart();
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
 
-<div className={styles.rightSection}>
-        
+        <div className={styles.rightSection}>
+       
         {user ? (
           <div className={styles.userWrapper} ref={dropdownRef}>
             <div
@@ -126,10 +126,10 @@ const { cart } = useCart();
             </svg>
           </a>
         )}
-      </div>
+        </div>
 
 
-        {/* CART ICON */}
+{/* CART ICON */}
 <div className={styles.cartIconWrapper} onClick={() => setCartOpen(true)}>
   <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
     <circle cx="9" cy="21" r="1" />
