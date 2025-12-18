@@ -2,8 +2,8 @@
 import styles from "./Products.module.css";
 import { useEffect, useState, useCallback } from "react";
 import { useCart } from "../../../context/CartContext";
-import { useContext } from "react";
-import { CartProvider } from "../../../context/CartContext";
+// import { useContext } from "react";
+// import { CartProvider } from "../../../context/CartContext";
 
 export default function ProductsPage() {
 
