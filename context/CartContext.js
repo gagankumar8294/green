@@ -1,4 +1,81 @@
-// "use client";
+"use client";
+
+import { createContext, useContext, useEffect, useState } from "react";
+import { post, get } from "../utils/api";
+import { AuthContext } from "./AuthContex";
+
+const CartContext = createContext();
+
+export function CartProvider({ children }) {
+  const { user } = useContext(AuthContext);
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  // ------------------------------------
+  // FETCH CART FROM DB (after login)
+  // ------------------------------------
+  useEffect(() => {
+    if (!user) {
+      setCart([]);
+      return;
+    }
+
+    async function fetchCart() {
+      try {
+        const data = await get("/cart");
+        if (data.success) {
+          setCart(data.cart.items || []);
+        }
+      } catch (err) {
+        console.log("Fetch cart error:", err);
+      }
+    }
+
+    fetchCart();
+  }, [user]);
+
+  // ------------------------------------
+  // ADD TO CART (DB)
+  // ------------------------------------
+  const addToCart = async (product) => {
+    if (!user) {
+      alert("Please login to add items to cart");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const data = await post("/cart/add", {
+        productId: product._id,
+      });
+
+      if (data.success) {
+        setCart(data.cart.items);
+      }
+    } catch (err) {
+      console.log("Add to cart error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        cartCount: cart.reduce((sum, i) => sum + i.quantity, 0),
+        loading,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+}
+
+export const useCart = () => useContext(CartContext);
+
 
 // import { createContext, useContext, useEffect, useState } from "react";
 // import { post, get } from "../utils/api";

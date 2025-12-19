@@ -3,11 +3,12 @@ import React, { useState, useContext, useRef } from "react";
 import { useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { ThemeContext } from "../context/ThemeContext";
-import { useCart } from "../context/CartContext";
+// import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
-  const { cart } = useCart();
+  // const { cart } = useCart();
+  const cart = useState(0);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
