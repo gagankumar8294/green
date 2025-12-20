@@ -10,26 +10,48 @@ export function CartProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
 
-  // 🔹 Fetch cart after login
   useEffect(() => {
-    if (!user) {
-      setCart([]);
-      return;
-    }
+  if (!user) {
+    setCart([]);
+    return;
+  }
 
-    async function fetchCart() {
-      try {
-        const data = await get("/cart");
-        if (data.success) {
-          setCart(data.cart.items || []);
-        }
-      } catch (err) {
-        console.error("Fetch cart error", err);
+  const timer = setTimeout(async () => {
+    try {
+      const data = await get("/cart");
+      if (data.success) {
+        setCart(data.cart.items || []);
       }
+    } catch (err) {
+      console.error("Fetch cart error", err);
     }
-    fetchCart();
-  }, [user]);
+  }, 300); // ⬅️ VERY IMPORTANT
+
+  return () => clearTimeout(timer);
+}, [user]);
+
+    
+  // 🔹 Fetch cart after login
+  // useEffect(() => {
+  //   if (!user) {
+  //     setCart([]);
+  //     return;
+  //   }
+
+  //   async function fetchCart() {
+  //     try {
+  //       const data = await get("/cart");
+  //       if (data.success) {
+  //         setCart(data.cart.items || []);
+  //       }
+  //     } catch (err) {
+  //       console.error("Fetch cart error", err);
+  //     }
+  //   }
+  //   fetchCart();
+  // }, [user]);
 
   
   const addToCart = async (product) => {
@@ -52,32 +74,59 @@ export function CartProvider({ children }) {
   };
 
   // 🔹 Update quantity
-  const updateQuantity = async (productId, newQuantity) => {
-  // Step 1: Optimistically update cart on client
-  setCart((prevCart) =>
-    prevCart.map((item) =>
-      item._id === productId ? { ...item, quantity: newQuantity } : item
+const updateQuantity = async (productId, newQuantity) => {
+
+  // ❗ HARD GUARD
+  if (newQuantity < 1) return;
+
+  if (syncing) return;
+  setSyncing(true);
+
+  // Optimistic update
+  setCart(prev =>
+    prev.map(i =>
+      i.productId.toString() === productId
+        ? { ...i, quantity: newQuantity }
+        : i
     )
   );
 
-  // Step 2: Update backend
   try {
-    const data = await post("/cart/update", { productId, quantity: newQuantity });
+    const data = await post("/cart/update", {
+      productId,
+      quantity: newQuantity,
+    });
+
     if (data.success) {
-      // Sync cart in case backend changed it
       setCart(data.cart.items);
     }
   } catch (err) {
     console.error("Failed to update quantity", err);
-    // Optionally revert change if backend fails
   }
+
+  setSyncing(false);
 };
+
 
 
   // 🔹 Remove item
   const removeItem = async (productId) => {
+    // optimistic remove
+  setCart(prev =>
+    prev.filter(item => item.productId.toString() !== productId)
+  );
+
+  try {
     const data = await post("/cart/remove", { productId });
-    if (data.success) setCart(data.cart.items);
+    if (data.success) {
+      setCart(data.cart.items);
+    }
+  } catch (err) {
+    console.error("Remove failed", err);
+  }
+  
+    // const data = await post("/cart/remove", { productId });
+    // if (data.success) setCart(data.cart.items);
   };
 
   return (
@@ -88,6 +137,7 @@ export function CartProvider({ children }) {
         updateQuantity,
         removeItem,
         setCart,
+        syncing,
         cartCount: cart.reduce((sum, i) => sum + i.quantity, 0),
         loading,
       }}

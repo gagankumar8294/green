@@ -7,8 +7,8 @@ import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
-  const { cart, updateQuantity, removeItem } = useCart();
-
+  const { cart, updateQuantity, removeItem, syncing } = useCart();
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -189,15 +189,18 @@ export default function Navbar() {
           {/* Quantity Controls */}
           <div className={styles.quantityControls}>
             <button
+              disabled={syncing}
               onClick={() => 
-                updateQuantity(item.productId, item.quantity - 1)
+                updateQuantity(item.productId.toString(), item.quantity - 1)
               }
-              disabled={item.quantity <= 1}
             >
               -
             </button>
             <span>{item.quantity}</span>
-            <button onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
+            <button
+              disabled={syncing}
+              onClick={() => 
+                updateQuantity(item.productId.toString(), item.quantity + 1)}>
               +
             </button>
           </div>
@@ -205,7 +208,7 @@ export default function Navbar() {
           {/* Remove Item */}
           <button
             className={styles.removeItemBtn}
-            onClick={() => removeItem(item.productId)}
+            onClick={() => removeItem(item.productId.toString())}
           >
             <svg
       xmlns="http://www.w3.org/2000/svg"
