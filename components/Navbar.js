@@ -176,7 +176,11 @@ export default function Navbar() {
   ) : (
     cart.map((item) => (
       <div key={item._id} className={styles.cartItem}>
-        <img src={item.image} className={styles.cartItemImage} alt={item.name} />
+        <img
+          src={item.image}
+          className={styles.cartItemImage}
+          alt={item.productId.name}
+        />
 
         <div className={styles.cartItemInfo}>
           <p className={styles.cartItemName}>{item.name}</p>
@@ -203,7 +207,19 @@ export default function Navbar() {
             className={styles.removeItemBtn}
             onClick={() => removeItem(item.productId)}
           >
-            Remove
+            <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0H7m3-3h4a1 1 0 011 1v2H9V5a1 1 0 011-1z"
+      />
+    </svg>
           </button>
         </div>
       </div>

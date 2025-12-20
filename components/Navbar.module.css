@@ -448,3 +448,222 @@
     width: 80%;
   }
 }
+
+/*************************************
+  QUANTITY CONTROLS
+*************************************/
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.quantityControls button {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Quantity number */
+.quantityControls span {
+  min-width: 22px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* LIGHT MODE */
+.light .quantityControls button {
+  background: #f1f1f1;
+  color: #111;
+}
+
+.light .quantityControls button:hover {
+  background: #e2e2e2;
+}
+
+.light .quantityControls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* DARK MODE */
+.dark .quantityControls button {
+  background: #1f2933;
+  color: #f3f4f6;
+}
+
+.dark .quantityControls button:hover {
+  background: #374151;
+}
+
+.dark .quantityControls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/*************************************
+  REMOVE ITEM (BIN ICON)
+*************************************/
+.removeItemBtn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  width: fit-content;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* SVG icon inside remove button */
+.removeItemBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* LIGHT MODE */
+.light .removeItemBtn svg {
+  stroke: #dc2626;
+}
+
+.light .removeItemBtn:hover svg {
+  stroke: #b91c1c;
+}
+
+/* DARK MODE */
+.dark .removeItemBtn svg {
+  stroke: #f87171;
+}
+
+.dark .removeItemBtn:hover svg {
+  stroke: #ef4444;
+}
+
+.removeItemBtn:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+
+/*************************************
+  CART ACTIONS ROW
+*************************************/
+.cartActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/*************************************
+  QUANTITY CONTROLS (INLINE)
+*************************************/
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*************************************
+  REMOVE BUTTON (RIGHT END)
+*************************************/
+.removeItemBtn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Icon size */
+.removeItemBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* LIGHT MODE */
+.light .removeItemBtn svg {
+  stroke: #dc2626;
+}
+
+.light .removeItemBtn:hover svg {
+  stroke: #b91c1c;
+}
+
+/* DARK MODE */
+.dark .removeItemBtn svg {
+  stroke: #f87171;
+}
+
+.dark .removeItemBtn:hover svg {
+  stroke: #ef4444;
+}
+
+.removeItemBtn:hover {
+  transform: scale(1.1);
+}
+
+
+/*************************************
+  CART ACTIONS ROW
+*************************************/
+.cartActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/*************************************
+  QUANTITY CONTROLS (INLINE)
+*************************************/
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*************************************
+  REMOVE BUTTON (RIGHT END)
+*************************************/
+.removeItemBtn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Icon size */
+.removeItemBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* LIGHT MODE */
+.light .removeItemBtn svg {
+  stroke: #dc2626;
+}
+
+.light .removeItemBtn:hover svg {
+  stroke: #b91c1c;
+}
+
+/* DARK MODE */
+.dark .removeItemBtn svg {
+  stroke: #f87171;
+}
+
+.dark .removeItemBtn:hover svg {
+  stroke: #ef4444;
+}
+
+.removeItemBtn:hover {
+  transform: scale(1.1);
+}
