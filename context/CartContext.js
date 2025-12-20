@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { post, get } from "../utils/api";
+import { get, post } from "../utils/api";
 import { AuthContext } from "./AuthContex";
 
 const CartContext = createContext();
@@ -11,9 +11,7 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // ------------------------------------
-  // FETCH CART FROM DB (after login)
-  // ------------------------------------
+  // 🔹 Fetch cart after login
   useEffect(() => {
     if (!user) {
       setCart([]);
@@ -27,23 +25,19 @@ export function CartProvider({ children }) {
           setCart(data.cart.items || []);
         }
       } catch (err) {
-        console.log("Fetch cart error:", err);
+        console.error("Fetch cart error", err);
       }
     }
 
     fetchCart();
   }, [user]);
 
-  // ------------------------------------
-  // ADD TO CART (DB)
-  // ------------------------------------
+  // 🔹 Add item
   const addToCart = async (product) => {
     if (!user) {
       alert("Please login to add items to cart");
       return;
     }
-
-    setLoading(true);
 
     try {
       const data = await post("/cart/add", {
@@ -54,10 +48,20 @@ export function CartProvider({ children }) {
         setCart(data.cart.items);
       }
     } catch (err) {
-      console.log("Add to cart error:", err);
-    } finally {
-      setLoading(false);
+      console.error("Add to cart error", err);
     }
+  };
+
+  // 🔹 Update quantity
+  const updateQuantity = async (productId, quantity) => {
+    const data = await post("/cart/update", { productId, quantity });
+    if (data.success) setCart(data.cart.items);
+  };
+
+  // 🔹 Remove item
+  const removeItem = async (productId) => {
+    const data = await post("/cart/remove", { productId });
+    if (data.success) setCart(data.cart.items);
   };
 
   return (
@@ -65,6 +69,9 @@ export function CartProvider({ children }) {
       value={{
         cart,
         addToCart,
+        updateQuantity,
+        removeItem,
+        setCart,
         cartCount: cart.reduce((sum, i) => sum + i.quantity, 0),
         loading,
       }}
@@ -75,7 +82,6 @@ export function CartProvider({ children }) {
 }
 
 export const useCart = () => useContext(CartContext);
-
 
 // import { createContext, useContext, useEffect, useState } from "react";
 // import { post, get } from "../utils/api";
