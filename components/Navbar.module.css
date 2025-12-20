@@ -277,8 +277,13 @@
   font-size: 15px;
   background: none;
   border: none;
+  /* color: #fff; */
   cursor: pointer;
   transition: background 0.2s ease;
+}
+
+.dark .logoutBtn {
+  color: #fff;
 }
 
 .logoutBtn:hover {

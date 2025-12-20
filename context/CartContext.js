@@ -28,11 +28,10 @@ export function CartProvider({ children }) {
         console.error("Fetch cart error", err);
       }
     }
-
     fetchCart();
   }, [user]);
 
-  // 🔹 Add item
+  
   const addToCart = async (product) => {
     if (!user) {
       alert("Please login to add items to cart");
@@ -53,10 +52,27 @@ export function CartProvider({ children }) {
   };
 
   // 🔹 Update quantity
-  const updateQuantity = async (productId, quantity) => {
-    const data = await post("/cart/update", { productId, quantity });
-    if (data.success) setCart(data.cart.items);
-  };
+  const updateQuantity = async (productId, newQuantity) => {
+  // Step 1: Optimistically update cart on client
+  setCart((prevCart) =>
+    prevCart.map((item) =>
+      item._id === productId ? { ...item, quantity: newQuantity } : item
+    )
+  );
+
+  // Step 2: Update backend
+  try {
+    const data = await post("/cart/update", { productId, quantity: newQuantity });
+    if (data.success) {
+      // Sync cart in case backend changed it
+      setCart(data.cart.items);
+    }
+  } catch (err) {
+    console.error("Failed to update quantity", err);
+    // Optionally revert change if backend fails
+  }
+};
+
 
   // 🔹 Remove item
   const removeItem = async (productId) => {

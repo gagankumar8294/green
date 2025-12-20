@@ -7,7 +7,7 @@ import { useCart } from "../context/CartContext";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
-const { cart } = useCart();
+  const { cart, updateQuantity, removeItem } = useCart();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -171,21 +171,51 @@ const { cart } = useCart();
   <h3 className={styles.cartTitle}>Your Cart</h3>
 
   <div className={styles.cartItems}>
-    {(!cart || cart.length === 0) ? (
-      <p className={styles.emptyCart}>Your cart is empty</p>
-    ) : (
-      cart.map((item) => (
-        <div key={item._id} className={styles.cartItem}>
-          <img src={item.image} className={styles.cartItemImage} alt="" />
+  {(!cart || cart.length === 0) ? (
+    <p className={styles.emptyCart}>Your cart is empty</p>
+  ) : (
+    cart.map((item) => (
+      <div key={item._id} className={styles.cartItem}>
+        <img src={item.image} className={styles.cartItemImage} alt={item.name} />
 
-          <div className={styles.cartItemInfo}>
-            <p className={styles.cartItemName}>{item.name}</p>
-            <p className={styles.cartItemPrice}>₹{item.price}</p>
+        <div className={styles.cartItemInfo}>
+          <p className={styles.cartItemName}>{item.name}</p>
+          <p className={styles.cartItemPrice}>₹{item.price}</p>
+
+          {/* Quantity Controls */}
+          <div className={styles.quantityControls}>
+            <button
+              onClick={() => 
+                updateQuantity(item.productId, item.quantity - 1)
+              }
+              disabled={item.quantity <= 1}
+            >
+              -
+            </button>
+            <span>{item.quantity}</span>
+            <button onClick={() => updateQuantity(item.productId, item.quantity + 1)}>
+              +
+            </button>
           </div>
+
+          {/* Remove Item */}
+          <button
+            className={styles.removeItemBtn}
+            onClick={() => removeItem(item.productId)}
+          >
+            Remove
+          </button>
         </div>
-      ))
-    )}
-  </div>
+      </div>
+    ))
+  )}
+</div>
+
+{/* Total Price */}
+<div className={styles.cartTotal}>
+  <h4>Total: ₹{cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}</h4>
+</div>
+
 </div>
 </>
   );
