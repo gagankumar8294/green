@@ -170,7 +170,10 @@ export default function Navbar() {
 
   <h3 className={styles.cartTitle}>Your Cart</h3>
 
-  <div className={styles.cartItems}>
+
+
+{/* CART ITEMS */}
+<div className={styles.cartItems}>
   {(!cart || cart.length === 0) ? (
     <p className={styles.emptyCart}>Your cart is empty</p>
   ) : (
@@ -179,28 +182,28 @@ export default function Navbar() {
         <img
           src={item.image}
           className={styles.cartItemImage}
-          alt={item.productId.name}
+          alt={item.name}
         />
 
         <div className={styles.cartItemInfo}>
           <p className={styles.cartItemName}>{item.name}</p>
-          <p className={styles.cartItemPrice}>₹{item.price}</p>
+          <p className={styles.cartItemPrice}>
+            {item.inStock ? `₹${item.price}` : `Out of Stock`}
+          </p>
 
           {/* Quantity Controls */}
           <div className={styles.quantityControls}>
             <button
-              disabled={syncing}
-              onClick={() => 
-                updateQuantity(item.productId.toString(), item.quantity - 1)
-              }
+              disabled={syncing || !item.inStock} // disable if out of stock
+              onClick={() => updateQuantity(item.productId.toString(), item.quantity - 1)}
             >
               -
             </button>
             <span>{item.quantity}</span>
             <button
-              disabled={syncing}
-              onClick={() => 
-                updateQuantity(item.productId.toString(), item.quantity + 1)}>
+              disabled={syncing || !item.inStock} // disable if out of stock
+              onClick={() => updateQuantity(item.productId.toString(), item.quantity + 1)}
+            >
               +
             </button>
           </div>
@@ -210,19 +213,7 @@ export default function Navbar() {
             className={styles.removeItemBtn}
             onClick={() => removeItem(item.productId.toString())}
           >
-            <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0H7m3-3h4a1 1 0 011 1v2H9V5a1 1 0 011-1z"
-      />
-    </svg>
+            Remove
           </button>
         </div>
       </div>
@@ -232,8 +223,15 @@ export default function Navbar() {
 
 {/* Total Price */}
 <div className={styles.cartTotal}>
-  <h4>Total: ₹{cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}</h4>
+  <h4>
+    Total: ₹
+    {cart.reduce(
+      (sum, item) => sum + (item.inStock ? item.price * item.quantity : 0),
+      0
+    )}
+  </h4>
 </div>
+
 
 </div>
 </>

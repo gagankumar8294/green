@@ -271,3 +271,13 @@
     display: none;
   }
 }
+
+/* Products.module.css */
+.outOfStock {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
