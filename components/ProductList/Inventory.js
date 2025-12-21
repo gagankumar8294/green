@@ -20,6 +20,7 @@ export default function Inventory() {
       width: "",
       height: "",
     },
+    inStock: true,
   });
 
   // FETCH PRODUCTS
@@ -50,6 +51,7 @@ export default function Inventory() {
         width: p.dimensions?.width || "",
         height: p.dimensions?.height || "",
       },
+      inStock: p.inStock ?? true,
     });
   };
 
@@ -69,6 +71,13 @@ export default function Inventory() {
   // SUB IMAGES
   const addSubImage = () => {
     setFormData((p) => ({ ...p, subImages: [...p.subImages, ""] }));
+  };
+
+  const toggleInStock = () => {
+    setFormData((prev) => ({
+      ...prev,
+      inStock: !prev.inStock,
+    }));
   };
 
   const updateSubImage = (i, v) => {
@@ -113,6 +122,7 @@ export default function Inventory() {
           <th>Description</th>
           <th>Price</th>
           <th>Qty</th>
+          <th>In Stock</th>
           <th>Weight</th>
           <th>Categories</th>
           <th>Dimensions</th>
@@ -153,6 +163,18 @@ export default function Inventory() {
                     onChange={handleChange}
                   />
                 </td>
+
+                <td>
+                  <div
+                    className={`${styles.toggle} ${
+                      formData.inStock ? styles.toggleOn : styles.toggleOff
+                    }`}
+                    onClick={toggleInStock}
+                  >
+                    <div className={styles.knob}></div>
+                  </div>
+                </td>
+
 
                 <td>
                   <input
@@ -242,6 +264,16 @@ export default function Inventory() {
               <td>{p.description}</td>
               <td>₹{p.price}</td>
               <td>{p.quantity}</td>
+              <td>
+                <span
+                  className={
+                    p.inStock ? styles.inStockBadge : styles.outOfStockBadge
+                  }
+                >
+                  {p.inStock ? "In Stock" : "Out of Stock"}
+                </span>
+              </td>
+
               <td>{p.weight}</td>
               <td>{(p.categories || []).join(", ")}</td>
               <td>

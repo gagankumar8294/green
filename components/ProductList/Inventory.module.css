@@ -242,3 +242,54 @@
   font-size: 11px;
   opacity: 0.8;
 }
+
+
+/* In Stock Badges */
+.inStockBadge {
+  background: #4caf50;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.outOfStockBadge {
+  background: #e53935;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+/* Toggle Switch */
+.toggle {
+  width: 46px;
+  height: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.toggleOn {
+  background: #4caf50;
+}
+
+.toggleOff {
+  background: #999;
+}
+
+.knob {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.toggleOn .knob {
+  transform: translateX(22px);
+}
