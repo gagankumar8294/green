@@ -77,6 +77,9 @@ const updateQuantity = async (productId, newQuantity) => {
 
 
 
+const clearCart = () => {
+  setCart([]);
+};
 
 
   // 🔹 Remove item
@@ -112,6 +115,7 @@ const updateQuantity = async (productId, newQuantity) => {
         syncing,
         cartCount: cart.reduce((sum, i) => sum + i.quantity, 0),
         loading,
+        clearCart,
       }}
     >
       {children}

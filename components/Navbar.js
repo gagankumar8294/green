@@ -9,7 +9,7 @@ import { get } from "../utils/api";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
-  const { cart,total,setTotal, updateQuantity, removeItem, syncing } = useCart();
+  const { cart,total,setTotal, updateQuantity, removeItem, syncing, clearCart } = useCart();
   
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -17,6 +17,79 @@ export default function Navbar() {
   const { theme } = useContext(ThemeContext); // Get current theme
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const [user, setUser] = useState(null);
+
+  const loadRazorpay = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
+const handleCheckout = async () => {
+  const loaded = await loadRazorpay();
+  if (!loaded) {
+    alert("Razorpay SDK failed to load");
+    return;
+  }
+
+  // 1️⃣ Create order (BACKEND TOTAL)
+  const res = await fetch("http://localhost:3200/api/payment/create-order", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  const data = await res.json();
+
+  if (!data.success) {
+    alert(data.message || "Unable to create order");
+    return;
+  }
+
+  // 2️⃣ Open Razorpay
+  const options = {
+    key: data.key,
+    amount: data.order.amount,
+    currency: "INR",
+    name: "Your Store Name",
+    description: "Order Payment",
+    order_id: data.order.id,
+
+    handler: async function (response) {
+      // 3️⃣ Verify payment
+      const verifyRes = await fetch(
+        "http://localhost:3200/api/payment/verify-payment",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(response),
+        }
+      );
+
+      const verifyData = await verifyRes.json();
+
+      if (verifyData.success) {
+        alert("Payment successful");
+        clearCart();    // frontend cleanup
+        setTotal(0);
+        setCartOpen(false);
+      } else {
+        alert("Payment verification failed");
+      }
+    },
+
+    theme: {
+      color: "#000000",
+    },
+  };
+
+  const razorpay = new window.Razorpay(options);
+  razorpay.open();
+};
+
 
   useEffect(() => {
   fetch("http://localhost:3200/api/auth/me", {
@@ -245,6 +318,13 @@ useEffect(() => {
   <h4>
     Total: ₹{total}
   </h4>
+  <button
+    className={styles.checkoutBtn}
+    disabled={cart.length === 0}
+    onClick={handleCheckout}
+  >
+    Checkout
+  </button>
 </div>
 
 
