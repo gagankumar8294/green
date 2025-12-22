@@ -1,13 +1,15 @@
 "use client";
+import { useMemo } from "react";
 import React, { useState, useContext, useRef } from "react";
 import { useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { ThemeContext } from "../context/ThemeContext";
 import { useCart } from "../context/CartContext";
+import { get } from "../utils/api";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
-  const { cart, updateQuantity, removeItem, syncing } = useCart();
+  const { cart,total,setTotal, updateQuantity, removeItem, syncing } = useCart();
   
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -26,6 +28,18 @@ export default function Navbar() {
       
     });
 }, []);
+
+useEffect(() => {
+  async function fetchTotal() {
+    try {
+      const data = await get("/cart/total");
+      if (data.success) setTotal(data.total);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  fetchTotal();
+}, [cart]);
 
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -178,7 +192,10 @@ export default function Navbar() {
     <p className={styles.emptyCart}>Your cart is empty</p>
   ) : (
     cart.map((item) => (
-      <div key={item._id} className={styles.cartItem}>
+      <div 
+        key={item.productId.toString()} 
+        className={styles.cartItem}
+      >
         <img
           src={item.image}
           className={styles.cartItemImage}
@@ -194,8 +211,10 @@ export default function Navbar() {
           {/* Quantity Controls */}
           <div className={styles.quantityControls}>
             <button
-              disabled={syncing || !item.inStock} // disable if out of stock
-              onClick={() => updateQuantity(item.productId.toString(), item.quantity - 1)}
+              disabled={syncing || !item.inStock || item.quantity <= 1} // disable if out of stock
+              onClick={() => 
+                updateQuantity(item.productId.toString(), item.quantity - 1)
+              }
             >
               -
             </button>
@@ -224,11 +243,7 @@ export default function Navbar() {
 {/* Total Price */}
 <div className={styles.cartTotal}>
   <h4>
-    Total: ₹
-    {cart.reduce(
-      (sum, item) => sum + (item.inStock ? item.price * item.quantity : 0),
-      0
-    )}
+    Total: ₹{total}
   </h4>
 </div>
 

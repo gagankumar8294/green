@@ -9,6 +9,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const { user } = useContext(AuthContext);
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [syncing, setSyncing] = useState(false);
 
@@ -51,23 +52,11 @@ export function CartProvider({ children }) {
     }
   };
 
-  // 🔹 Update quantity
 const updateQuantity = async (productId, newQuantity) => {
 
-  // ❗ HARD GUARD
-  if (newQuantity < 1) return;
+  if (newQuantity < 1 || syncing) return;
 
-  if (syncing) return;
   setSyncing(true);
-
-  // Optimistic update
-  setCart(prev =>
-    prev.map(i =>
-      i.productId.toString() === productId
-        ? { ...i, quantity: newQuantity }
-        : i
-    )
-  );
 
   try {
     const data = await post("/cart/update", {
@@ -75,15 +64,18 @@ const updateQuantity = async (productId, newQuantity) => {
       quantity: newQuantity,
     });
 
-    if (data.success) {
+    if (data.success && data.cart?.items) {
       setCart(data.cart.items);
+      setTotal(data.cart.total); // ✅ backend total
     }
   } catch (err) {
-    console.error("Failed to update quantity", err);
+    console.error(err);
   }
 
   setSyncing(false);
 };
+
+
 
 
 
@@ -111,6 +103,8 @@ const updateQuantity = async (productId, newQuantity) => {
     <CartContext.Provider
       value={{
         cart,
+        total,
+        setTotal,
         addToCart,
         updateQuantity,
         removeItem,

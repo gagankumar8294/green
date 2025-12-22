@@ -179,6 +179,7 @@ export default function ProductsPage() {
                 <div key={p._id} className={styles.card}>
                   <img src={p.mainImage} alt={p.name} className={styles.image} />
                   <h3>{p.name}</h3>
+                  <p>{p.price}</p>
                   {p.inStock ? (
                     <div
                       className={styles.addToCartBtn}
