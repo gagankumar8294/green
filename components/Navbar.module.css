@@ -667,3 +667,104 @@
 .removeItemBtn:hover {
   transform: scale(1.1);
 }
+
+
+/* ===============================
+   ADD / EDIT ADDRESS BUTTON
+================================ */
+
+.addressBtn {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  background: transparent;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Hover */
+.addressBtn:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Icon inside button */
+.addressBtn span {
+  font-size: 16px;
+}
+
+/* Optional divider line under button */
+.addressDivider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 6px 0;
+}
+
+/* ===============================
+   CHECKOUT BUTTON
+================================ */
+
+.checkoutBtn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--theme-add-btn);
+  color: #000;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.checkoutBtn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+.checkoutBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   ADDRESS REQUIRED MESSAGE
+================================ */
+
+.addressRequiredBox {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: var(--hover-bg);
+  text-align: center;
+}
+.addressText {
+  font-size: 13px;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+.addAddressBtn {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.addAddressBtn:hover {
+  background-color: var(--hover-bg);
+  transform: translateY(-1px);
+}

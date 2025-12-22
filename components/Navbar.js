@@ -6,11 +6,20 @@ import styles from "./Navbar.module.css";
 import { ThemeContext } from "../context/ThemeContext";
 import { useCart } from "../context/CartContext";
 import { get } from "../utils/api";
+import AddressModal from "./AddressModal/AddressModal";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
   const { cart,total,setTotal, updateQuantity, removeItem, syncing, clearCart } = useCart();
-  
+  const [ addressModalOpen, setAddressModalOpen] = useState(false);
+  const [address, setAddress] = useState({
+    fullName: "",
+    phone: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
+  });
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -27,6 +36,43 @@ export default function Navbar() {
     document.body.appendChild(script);
   });
 };
+
+useEffect(() => {
+  if (user?.address) {
+    setAddress(user.address);
+  }
+}, [user]);
+
+const saveAddress = async () => {
+  // 🔒 Frontend validation
+  if (!address.fullName || !address.phone || !address.pincode) {
+    alert("Please fill required fields (Name, Phone, Pincode)");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:3200/api/user/address", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(address),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setUser({ ...user, address: data.address });
+      setAddressModalOpen(false);
+    } else {
+      alert(data.message || "Failed to save address");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  }
+};
+
+
 
 const handleCheckout = async () => {
   const loaded = await loadRazorpay();
@@ -189,6 +235,27 @@ useEffect(() => {
             {dropdownOpen && (
               <div className={`${styles.dropdown} ${theme}`}>
                 <button
+                  className={styles.addressBtn}
+                  onClick={() => setAddressModalOpen(true)}
+                >
+                  <span>{user.address ? "✏️" : "➕"}</span>
+                  {user.address ? "Edit Address" : "Add Address"}
+                </button>
+{/* <button
+                  className={styles.dropdownBtn}
+                  onClick={() => setAddressModalOpen(true)}
+                >
+                  {user.address ? (
+                    <>
+                      ✏️ Edit Address
+                    </>
+                  ) : (
+                    <>
+                      ➕ Add Address
+                    </>
+                  )}
+                </button> */}
+                <button
                   className={styles.logoutBtn}
                   onClick={() =>
                     (window.location.href =
@@ -314,21 +381,65 @@ useEffect(() => {
 </div>
 
 {/* Total Price */}
-<div className={styles.cartTotal}>
+{/* <div className={styles.cartTotal}>
   <h4>
     Total: ₹{total}
   </h4>
   <button
     className={styles.checkoutBtn}
-    disabled={cart.length === 0}
-    onClick={handleCheckout}
+    disabled={cart.length === 0 || !user?.address}
+    onClick={()=> {
+      if(!user?.address) {
+        setAddressModalOpen(true);
+        return;
+      }
+      handleCheckout()
+    }}
   >
     Checkout
   </button>
+</div> */}
+{/* Total Price */}
+<div className={styles.cartTotal}>
+  <h4>Total: ₹{total}</h4>
+
+  {user?.address ? (
+    /* ✅ USER HAS ADDRESS → SHOW CHECKOUT */
+    <button
+      className={styles.checkoutBtn}
+      disabled={cart.length === 0}
+      onClick={handleCheckout}
+    >
+      Checkout
+    </button>
+  ) : (
+    /* ❌ NO ADDRESS → SHOW ADD ADDRESS CTA */
+    <div className={styles.addressRequiredBox}>
+      <p className={styles.addressText}>
+        Please add your delivery address to continue
+      </p>
+
+      <button
+        className={styles.addAddressBtn}
+        onClick={() => setAddressModalOpen(true)}
+      >
+        ➕ Add Address
+      </button>
+    </div>
+  )}
 </div>
 
 
+
 </div>
+<AddressModal
+  isOpen={addressModalOpen}
+  onClose={() => setAddressModalOpen(false)}
+  address={address}
+  setAddress={setAddress}
+  onSave={saveAddress}
+  isEdit={!!user?.address}
+/>
 </>
   );
 }

@@ -1,0 +1,134 @@
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000; /* higher than navbar & cart */
+}
+
+/* Modal Box */
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 20px 40px var(--shadow-color);
+  animation: popIn 0.25s ease;
+}
+
+/* Title */
+.modal h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* Inputs */
+.modal input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 14px;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+
+.modal input::placeholder {
+  color: #999;
+}
+
+.modal input:focus {
+  border-color: var(--active-border);
+  background: #fff;
+}
+
+.dark .modal input:focus {
+  background: #1f2933;
+}
+
+/* Row for City + State */
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.row input {
+  flex: 1;
+}
+
+/* Action Buttons */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Cancel Button */
+.cancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cancel:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.dark .cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Save Button */
+.save {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--theme-add-btn);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.save:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+/* Animation */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .modal {
+    width: 90%;
+    padding: 18px;
+  }
+}
