@@ -1,0 +1,128 @@
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Modal Box */
+.modal {
+  width: 90%;
+  max-width: 420px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  animation: slideUp 0.35s ease;
+}
+
+/* Success & Failed Accents */
+.success {
+  border-top: 5px solid #4caf50;
+}
+
+.failed {
+  border-top: 5px solid #e53935;
+}
+
+/* Headings */
+.modal h2 {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.total {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+/* Items List */
+.items {
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Scrollbar */
+.items::-webkit-scrollbar {
+  width: 5px;
+}
+
+.items::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+/* Single Item */
+.item {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  margin-bottom: 10px;
+}
+
+/* Product Image */
+.item img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+/* Product Info */
+.name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.item p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* Footer Text */
+.timer {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .modal {
+    padding: 16px;
+  }
+
+  .item img {
+    width: 48px;
+    height: 48px;
+  }
+}

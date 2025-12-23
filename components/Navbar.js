@@ -7,9 +7,14 @@ import { ThemeContext } from "../context/ThemeContext";
 import { useCart } from "../context/CartContext";
 import { get } from "../utils/api";
 import AddressModal from "./AddressModal/AddressModal";
+import PaymentResultModal from "./PaymentModal/PaymentResultModal";
 
 export default function Navbar() {
+  const [paymentModal, setPaymentModal] = useState(null);
   const [cartOpen, setCartOpen] = useState(false);
+  const paymentCompletedRef = useRef(false);
+  const cartSnapshotRef = useRef([]);
+
   const { cart,total,setTotal, updateQuantity, removeItem, syncing, clearCart } = useCart();
   const [ addressModalOpen, setAddressModalOpen] = useState(false);
   const [address, setAddress] = useState({
@@ -76,6 +81,9 @@ const saveAddress = async () => {
 
 const handleCheckout = async () => {
   const loaded = await loadRazorpay();
+  cartSnapshotRef.current = cart;
+  paymentCompletedRef.current = false;
+
   if (!loaded) {
     alert("Razorpay SDK failed to load");
     return;
@@ -117,15 +125,59 @@ const handleCheckout = async () => {
 
       const verifyData = await verifyRes.json();
 
-      if (verifyData.success) {
-        alert("Payment successful");
+      if (verifyData.success && verifyData.order) {
+        paymentCompletedRef.current = true;    
+        // ✅ SUCCESS MODAL (ORDER DATA)
+        setPaymentModal({
+          type: "success",
+          items: verifyData.order.items,
+          total: verifyData.order.totalAmount,
+          duration: 10000,
+        });
+        // alert("Payment successful");
         clearCart();    // frontend cleanup
         setTotal(0);
         setCartOpen(false);
+
+        setTimeout(() => {
+          window.location.href = "/shop"
+        }, 1000)
+
+        return; // STOP HERE
       } else {
-        alert("Payment verification failed");
+        // alert("Payment verification failed");
+            // ❌ FAILED MODAL (CART DATA)
+        setPaymentModal({
+          type: "failed",
+          items: cartSnapshotRef.current,
+          total: Number(total) || 0,
+          // total: verifyData,
+          duration: 10000,
+        });
       }
     },
+
+    modal: {
+    ondismiss: async function () {
+
+      if(paymentCompletedRef.current) return;
+
+      try {
+        await fetch("http://localhost:3200/api/payment/cancel", {
+          method: "POST",
+          credentials: "include",
+        });
+      } catch {}
+      // alert("Payment cancelled");
+          setPaymentModal({
+            type: "failed",
+            items: cartSnapshotRef.current,
+            total,
+            duration: 10000,
+          });
+          setCartOpen(true);
+    },
+  },
 
     theme: {
       color: "#000000",
@@ -440,6 +492,17 @@ useEffect(() => {
   onSave={saveAddress}
   isEdit={!!user?.address}
 />
+{paymentModal && (
+  <PaymentResultModal
+    type={paymentModal.type}
+    items={Array.isArray(paymentModal.items) ? paymentModal.items: []}
+    total={typeof paymentModal.total === "number" ? paymentModal.total : 0}
+    duration={paymentModal.duration}
+    onClose={() => setPaymentModal(null)}
+  />
+)}
+
 </>
+
   );
 }
