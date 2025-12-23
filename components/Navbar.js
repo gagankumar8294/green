@@ -107,8 +107,8 @@ const handleCheckout = async () => {
     key: data.key,
     amount: data.order.amount,
     currency: "INR",
-    name: "Your Store Name",
-    description: "Order Payment",
+    name: "Green Living",
+    description: "Purchasing Plants",
     order_id: data.order.id,
 
     handler: async function (response) {
@@ -141,7 +141,7 @@ const handleCheckout = async () => {
 
         setTimeout(() => {
           window.location.href = "/shop"
-        }, 1000)
+        }, 10000)
 
         return; // STOP HERE
       } else {
