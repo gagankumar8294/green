@@ -768,3 +768,18 @@
   background-color: var(--hover-bg);
   transform: translateY(-1px);
 }
+
+.dropdownBtn {
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.dropdownBtn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}

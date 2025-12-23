@@ -15,6 +15,11 @@ export default function Navbar() {
   const paymentCompletedRef = useRef(false);
   const cartSnapshotRef = useRef([]);
 
+  const goToOrders = () => {
+    setDropdownOpen(false);
+    window.location.href = "/my-orders";
+  };
+
   const { cart,total,setTotal, updateQuantity, removeItem, syncing, clearCart } = useCart();
   const [ addressModalOpen, setAddressModalOpen] = useState(false);
   const [address, setAddress] = useState({
@@ -286,6 +291,14 @@ useEffect(() => {
             {/* DROPDOWN */}
             {dropdownOpen && (
               <div className={`${styles.dropdown} ${theme}`}>
+                
+                    {/* 🧾 MY ORDERS */}
+                <button
+                  className={styles.dropdownBtn}
+                  onClick={goToOrders}
+                >
+                  📦 My Orders
+                </button>
                 <button
                   className={styles.addressBtn}
                   onClick={() => setAddressModalOpen(true)}
