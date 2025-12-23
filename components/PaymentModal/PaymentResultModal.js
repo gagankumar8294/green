@@ -14,7 +14,7 @@ export default function PaymentResultModal({
 
   // ⏳ Countdown timer
   useEffect(() => {
-    if (type !== "success") return;
+    // if (type !== "success") return;
 
     setSecondsLeft(Math.ceil(duration / 1000));
 
@@ -73,7 +73,11 @@ export default function PaymentResultModal({
               <strong>{secondsLeft} s</strong>
             </>
           ) : (
-            "Please try again"
+            <>
+              Redirecting to Cart in {" "}
+              <strong>{secondsLeft} s</strong>
+            </>
+            
           )}
         </p>
       </div>
