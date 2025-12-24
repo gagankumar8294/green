@@ -1,0 +1,111 @@
+/* BlogPage.module.css */
+
+/* Container for the blog content */
+.blogSection {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.8;
+  color: var(--text-color);
+  transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+/* Title */
+.blogSection h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+/* Headings */
+.blogSection h2,
+.blogSection h3,
+.blogSection h4 {
+  margin: 1.2rem 0;
+  color: var(--text-color);
+}
+
+/* Paragraphs */
+.blogSection p {
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.8;
+}
+
+/* Blog images */
+.blogSection img {
+  width: 100%;             /* full width of the container */
+  max-width: 700px;        /* limits image on large screens */
+  height: auto;            /* maintain aspect ratio */
+  display: block;          /* removes inline gap */
+  margin: 1rem auto;       /* centers image with spacing */
+  border-radius: 8px;      /* rounded corners */
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  object-fit: cover;       /* keeps image cropped nicely if needed */
+}
+
+.blogSection img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+/* Links */
+.blogSection a {
+  color: var(--text-color);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.blogSection a:hover {
+  color: var(--text-hover);
+}
+
+/* Responsive typography */
+@media screen and (max-width: 768px) {
+  .blogSection {
+    padding: 1.5rem;
+  }
+
+  .blogSection h1 {
+    font-size: 2rem;
+  }
+
+  .blogSection h2 {
+    font-size: 1.6rem;
+  }
+
+  .blogSection h3 {
+    font-size: 1.3rem;
+  }
+
+  .blogSection p {
+    font-size: 0.95rem;
+  }
+
+    .blogSection img {
+        max-width: 100%;       /* ensures image fits mobile width */
+        margin: 1rem 0;        /* spacing on mobile */
+    }
+}
+
+/* Blockquote styling (optional) */
+.blogSection blockquote {
+  border-left: 4px solid var(--border-color);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: var(--text-color);
+}
+
+/* Code styling (optional) */
+.blogSection code {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.95rem;
+}

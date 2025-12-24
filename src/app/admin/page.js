@@ -3,6 +3,7 @@ import { useState } from "react";
 import AddProductForm from "../../../components/Products/AddProductsForm";
 import Inventory from "../../../components/ProductList/Inventory";
 import AdminOrdersPage from "../../../components/Admin/AdminOrderPage";
+import AddBlogs from "../../../components/Admin/blog/AddBlogs";
 import styles from "./AddProduct.module.css";
 
 function AddProduct() {
@@ -37,6 +38,14 @@ function AddProduct() {
         >
           Order Management
         </button>
+        <button
+          className={`${styles.button} ${
+            activeTab === "addblog" ? styles.active : ""
+          }`}
+          onClick={() => setActiveTab("addblog")}
+        >
+          Add Blog
+        </button>
       </div>
 
       {/* Content */}
@@ -44,6 +53,7 @@ function AddProduct() {
         {activeTab === "addProduct" && <AddProductForm />}
         {activeTab === "inventory" && <Inventory />}
         {activeTab === "order" && <AdminOrdersPage />}
+        {activeTab === "addblog" && <AddBlogs />}
       </div>
     </div>
   );
