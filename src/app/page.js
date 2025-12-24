@@ -1,4 +1,5 @@
 import styles from "./HomePage.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -14,12 +15,20 @@ export default function Home() {
             doorstep.
           </p>
           <div className={styles.heroButtons}>
-            <button className={styles.primaryBtn}>Shop Plants</button>
-            <button className={styles.secondaryBtn}>Explore Collections</button>
+            <Link href="/shop" className={styles.LinkButton}>
+              <button className={styles.primaryBtn}>
+                  Shop Plants
+              </button>
+            </Link>
+            <Link href="/blog" className={styles.LinkButton}>
+            <button className={styles.secondaryBtn}>
+                Explore Blog
+            </button>
+            </Link>
           </div>
         </div>
         <div className={styles.heroImage}>
-          <img src="/plants/hero-plant.png" alt="Indoor Plant" />
+          <img src="/hero-plant.png" alt="Indoor-Plant-grrenplants" />
         </div>
       </section>
 
@@ -78,10 +87,10 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className={styles.cta}>
+      {/* <section className={styles.cta}>
         <h2>Start Your Green Journey Today 🌿</h2>
         <button className={styles.primaryBtn}>Browse All Plants</button>
-      </section>
+      </section> */}
     </main>
   );
 }

@@ -61,7 +61,7 @@ const saveAddress = async () => {
   }
 
   try {
-    const res = await fetch("http://localhost:3200/api/user/address", {
+    const res = await fetch("https://green-world-backend-ydlf.onrender.com/api/user/address", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -95,7 +95,7 @@ const handleCheckout = async () => {
   }
 
   // 1️⃣ Create order (BACKEND TOTAL)
-  const res = await fetch("http://localhost:3200/api/payment/create-order", {
+  const res = await fetch("https://green-world-backend-ydlf.onrender.com/api/payment/create-order", {
     method: "POST",
     credentials: "include",
   });
@@ -119,7 +119,7 @@ const handleCheckout = async () => {
     handler: async function (response) {
       // 3️⃣ Verify payment
       const verifyRes = await fetch(
-        "http://localhost:3200/api/payment/verify-payment",
+        "https://green-world-backend-ydlf.onrender.com/api/payment/verify-payment",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -168,7 +168,7 @@ const handleCheckout = async () => {
       if(paymentCompletedRef.current) return;
 
       try {
-        await fetch("http://localhost:3200/api/payment/cancel", {
+        await fetch("https://green-world-backend-ydlf.onrender.com/api/payment/cancel", {
           method: "POST",
           credentials: "include",
         });
@@ -195,7 +195,7 @@ const handleCheckout = async () => {
 
 
   useEffect(() => {
-  fetch("http://localhost:3200/api/auth/me", {
+  fetch("https://green-world-backend-ydlf.onrender.com/api/auth/me", {
     credentials: "include"
   })
     .then(res => res.json())
@@ -324,7 +324,7 @@ useEffect(() => {
                   className={styles.logoutBtn}
                   onClick={() =>
                     (window.location.href =
-                      "http://localhost:3200/api/auth/logout")
+                      "https://green-world-backend-ydlf.onrender.com/api/auth/logout")
                   }
                 >
                   Logout
@@ -333,7 +333,7 @@ useEffect(() => {
             )}
           </div>
         ) : (
-          <a href="http://localhost:3200/api/auth/google" className={styles.loginBtn}>
+          <a href="https://green-world-backend-ydlf.onrender.com/api/auth/google" className={styles.loginBtn}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

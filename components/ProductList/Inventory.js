@@ -25,7 +25,7 @@ export default function Inventory() {
 
   // FETCH PRODUCTS
   const fetchProducts = async () => {
-    const res = await fetch("http://localhost:3200/api/products/list");
+    const res = await fetch("https://green-world-backend-ydlf.onrender.com/api/products/list");
     const data = await res.json();
     setProducts(data.products || []);
   };
@@ -96,7 +96,7 @@ export default function Inventory() {
   // SAVE
   const handleSave = async () => {
     await fetch(
-      `http://localhost:3200/api/products/update/${editId}`,
+      `https://green-world-backend-ydlf.onrender.com/api/products/update/${editId}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },

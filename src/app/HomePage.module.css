@@ -44,9 +44,19 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.LinkButton {
+   text-decoration: none;
+   color: #fff;
+  
+}
+
+
+
 .primaryBtn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: #28b82f 3px dotted;
+  /* box-shadow: 0 10px 25px rgba(0,0,0,0.2); */
 }
 
 .secondaryBtn {

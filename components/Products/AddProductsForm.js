@@ -111,7 +111,7 @@ export default function AddProductForm() {
     };
 
     try {
-      const res = await axios.post("http://localhost:3200/api/products/add", payload);
+      const res = await axios.post("https://green-world-backend-ydlf.onrender.com/api/products/add", payload);
 
       alert("Product added successfully!");
 

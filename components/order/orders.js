@@ -9,7 +9,7 @@ export default function MyOrdersPage() {
   const [openOrderId, setOpenOrderId] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3200/api/payment/my-orders", {
+    fetch("https://green-world-backend-ydlf.onrender.com/api/payment/my-orders", {
       credentials: "include",
     })
       .then((res) => res.json())

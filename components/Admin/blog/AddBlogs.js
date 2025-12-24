@@ -18,7 +18,7 @@ export default function AddBlogs() {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch("http://localhost:3200/api/blogs", { credentials: "include" });
+      const res = await fetch("https://green-world-backend-ydlf.onrender.com/api/blogs", { credentials: "include" });
       if (!res.ok) throw new Error("Failed to fetch blogs");
       const data = await res.json();
       setBlogs(data);
@@ -58,14 +58,14 @@ export default function AddBlogs() {
     try {
       let res;
       if (isEditing) {
-        res = await fetch(`http://localhost:3200/api/blogs/${selectedId}`, {
+        res = await fetch(`https://green-world-backend-ydlf.onrender.com/api/blogs/${selectedId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
           credentials: "include",
         });
       } else {
-        res = await fetch("http://localhost:3200/api/blogs", {
+        res = await fetch("https://green-world-backend-ydlf.onrender.com/api/blogs", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -96,7 +96,7 @@ export default function AddBlogs() {
 
   const deleteBlog = async (id) => {
     try {
-      await fetch(`http://localhost:3200/api/blogs/${id}`, {
+      await fetch(`https://green-world-backend-ydlf.onrender.com/api/blogs/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

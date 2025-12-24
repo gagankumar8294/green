@@ -29,7 +29,7 @@ export default function ProductsPage() {
     });
 
     const res = await fetch(
-      `http://localhost:3200/api/products/list?${query.toString()}`
+      `https://green-world-backend-ydlf.onrender.com/api/products/list?${query.toString()}`
     );
     const data = await res.json();
 

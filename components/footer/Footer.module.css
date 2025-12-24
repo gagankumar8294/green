@@ -1,0 +1,99 @@
+.footer {
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-color);
+  margin-top: 60px;
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+/* Brand */
+.brand h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--text-hover);
+}
+
+.brand p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* Links */
+.links h3,
+.social h3 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.links ul {
+  list-style: none;
+}
+
+.links li {
+  margin-bottom: 8px;
+}
+
+.links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.links a:hover {
+  color: var(--text-hover);
+  padding-left: 6px;
+}
+
+/* Social Media */
+.socialIcons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.socialIcons a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  padding: 6px 0;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.socialIcons a:hover {
+  color: var(--text-hover);
+  transform: translateX(6px);
+}
+
+/* Bottom Bar */
+.bottomBar {
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+  .footerContainer {
+    text-align: center;
+  }
+
+  .socialIcons {
+    align-items: center;
+  }
+
+  .links ul {
+    padding: 0;
+  }
+}

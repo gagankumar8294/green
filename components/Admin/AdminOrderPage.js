@@ -9,7 +9,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3200/api/admin/orders", {
+    fetch("https://green-world-backend-ydlf.onrender.com/api/admin/orders", {
       credentials: "include",
     })
       .then(res => res.json())
@@ -20,7 +20,7 @@ export default function AdminOrdersPage() {
 
   const updateStatus = async (orderId, status) => {
     const res = await fetch(
-      `http://localhost:3200/api/admin/orders/${orderId}/status`,
+      `https://green-world-backend-ydlf.onrender.com/api/admin/orders/${orderId}/status`,
       {
         method: "PUT",
         credentials: "include",

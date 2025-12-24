@@ -18,7 +18,7 @@ export default function CommentsSection({ blogId }) {
 
   async function fetchComments() {
     const res = await fetch(
-      `http://localhost:3200/api/comments/blog/${blogId}`,
+      `https://green-world-backend-ydlf.onrender.com/api/comments/blog/${blogId}`,
       { cache: "no-store" }
     );
     const data = await res.json();
@@ -31,7 +31,7 @@ export default function CommentsSection({ blogId }) {
 
     setLoading(true);
 
-    await fetch("http://localhost:3200/api/comments", {
+    await fetch("https://green-world-backend-ydlf.onrender.com/api/comments", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

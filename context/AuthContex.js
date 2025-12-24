@@ -9,7 +9,7 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await fetch("http://localhost:3200/api/auth/me", {
+        const res = await fetch("https://green-world-backend-ydlf.onrender.com/api/auth/me", {
           credentials: "include",
         });
 

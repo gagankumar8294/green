@@ -1,4 +1,4 @@
-export const API = "http://localhost:3200/api"; // your backend URL
+export const API = "https://green-world-backend-ydlf.onrender.com/api"; // your backend URL
 
 export async function post(url, data) {
   const res = await fetch(`${API}${url}`, {
