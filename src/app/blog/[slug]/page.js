@@ -1,3 +1,4 @@
+import CommentsSection from '../../../../components/comments/CommentsSection';
 import { timeAgo } from '../../../../utils/timeAgo';
 import styles from './BlogPage.module.css';
 
@@ -38,6 +39,7 @@ export default async function BlogPage({ params })
           default: return null;
         }
       })}
+      <CommentsSection blogId={blog._id}/>
     </section>
   );
 }

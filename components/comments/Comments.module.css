@@ -1,0 +1,206 @@
+/* ===============================
+   Comments Section Wrapper
+================================ */
+
+.commentsSection {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.commentsSection h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+/* ===============================
+   Login note
+================================ */
+
+.loginNote {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+/* ===============================
+   Comment Form
+================================ */
+
+.commentForm {
+  margin-bottom: 2.5rem;
+}
+
+.commentForm textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.commentForm textarea:focus {
+  outline: none;
+  border-color: var(--active-border);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+}
+
+.commentForm button {
+  margin-top: 10px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  background: var(--active-bg);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.commentForm button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.commentForm button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   Comment List
+================================ */
+
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* ===============================
+   Single Comment
+================================ */
+
+.comment {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.avatar {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--border-color);
+}
+
+/* Comment body */
+
+.commentBody {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 12px 14px;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  transition: transform 0.2s ease;
+}
+
+.commentBody:hover {
+  transform: translateY(-1px);
+}
+
+/* Header */
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.commentHeader strong {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+/* Time */
+
+.time {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+/* Text */
+
+.commentText {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 6px 0 8px;
+  color: var(--text-color);
+}
+
+/* Reply button */
+
+.replyBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--active-bg);
+  cursor: pointer;
+}
+
+.replyBtn:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   Nested Replies
+================================ */
+
+/* Visual thread line */
+.commentList > div {
+  position: relative;
+}
+
+.commentList > div::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--border-color);
+  opacity: 0.4;
+}
+
+/* ===============================
+   Mobile tweaks
+================================ */
+
+@media (max-width: 600px) {
+  .avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .commentBody {
+    padding: 10px 12px;
+  }
+
+  .commentText {
+    font-size: 0.88rem;
+  }
+}
