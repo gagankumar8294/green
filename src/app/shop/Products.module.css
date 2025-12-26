@@ -373,3 +373,149 @@
 }
 
 
+
+/* =========================
+   PRODUCT CARD
+========================= */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+/* =========================
+   PRODUCT IMAGE
+========================= */
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   PRODUCT TITLE (CLAMPED)
+========================= */
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 6px 0;
+
+  /* 🔥 Text clamp */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;        /* ~200 characters visually */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 1.4;
+  min-height: calc(1.4em * 3); /* keeps cards equal height */
+}
+
+/* =========================
+   PRICE
+========================= */
+.card p {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 6px 0 10px;
+}
+
+/* Fade text on hover */
+.card:hover .title,
+.card:hover p {
+  opacity: 0.55;
+}
+
+/* =========================
+   ADD TO CART BUTTON
+========================= */
+.addToCartBtn {
+  width: 90%;
+  padding: 12px 0;
+
+  position: absolute;
+  left: 50%;
+  bottom: -60px;
+  transform: translateX(-50%);
+
+  background: var(--theme-add-btn);
+  color: #000;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+
+  opacity: 0;
+  transition: all 0.35s ease;
+}
+
+/* Slide + fade on hover */
+.card:hover .addToCartBtn {
+  bottom: 12px;
+  opacity: 1;
+}
+
+/* =========================
+   OUT OF STOCK
+========================= */
+.outOfStock {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* =========================
+   MOBILE BEHAVIOR
+========================= */
+@media (max-width: 1024px) {
+  .addToCartBtn {
+    position: static;
+    transform: none;
+    opacity: 1;
+    margin-top: 10px;
+  }
+
+  .card:hover .addToCartBtn {
+    bottom: auto;
+  }
+
+  .card:hover .title,
+  .card:hover p {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .image {
+    height: 140px;
+  }
+
+  .title {
+    font-size: 14px;
+    -webkit-line-clamp: 2; /* less height on small screens */
+    min-height: calc(1.4em * 2);
+  }
+
+  .addToCartBtn {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}
+
+
+.linkscard {
+  text-decoration: none;
+}

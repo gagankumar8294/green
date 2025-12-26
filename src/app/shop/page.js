@@ -1,13 +1,18 @@
-'use client';
+"use client";
 import styles from "./Products.module.css";
 import { useEffect, useState, useCallback } from "react";
 import { useCart } from "../../../context/CartContext";
+import Link from "next/link";
 
 export default function ProductsPage() {
   const { addToCart } = useCart();
+
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [showGif, setShowGif] = useState(true); // for first 5 seconds
+
+  // GIF + Skeleton control
+  const [showGif, setShowGif] = useState(false);
+  const [gifExpired, setGifExpired] = useState(false);
 
   // FILTER STATES
   const [search, setSearch] = useState("");
@@ -18,29 +23,49 @@ export default function ProductsPage() {
 
   const fetchProducts = useCallback(async () => {
     setIsLoading(true);
-    const query = new URLSearchParams({
-      search,
-      sort,
-      minPrice: priceRange.min,
-      maxPrice: priceRange.max,
-      categories: selectedCategories.join(","),
-    });
+    setShowGif(true);
+    setGifExpired(false);
 
-    const res = await fetch(
-      `https://green-world-backend-ydlf.onrender.com/api/products/list?${query.toString()}`
-    );
-    const data = await res.json();
-    setProducts(data.success ? data.products : []);
-    setIsLoading(false);
+    const controller = new AbortController();
+
+    // GIF visible for max 10 seconds
+    const gifTimer = setTimeout(() => {
+      setGifExpired(true);
+      setShowGif(false);
+    }, 10000);
+
+    try {
+      const query = new URLSearchParams({
+        search,
+        sort,
+        minPrice: priceRange.min,
+        maxPrice: priceRange.max,
+        categories: selectedCategories.join(","),
+      });
+
+      const res = await fetch(
+        `https://green-world-backend-ydlf.onrender.com/api/products/list?${query.toString()}`,
+        { signal: controller.signal }
+      );
+
+      const data = await res.json();
+      setProducts(data.success ? data.products : []);
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        console.error("❌ Fetch error:", error);
+      }
+    } finally {
+      clearTimeout(gifTimer);
+      setIsLoading(false);
+      setShowGif(false);
+      setGifExpired(false);
+    }
+
+    return () => controller.abort();
   }, [search, sort, priceRange, selectedCategories]);
 
   useEffect(() => {
-    // Show GIF for first 5 seconds
-    const gifTimer = setTimeout(() => setShowGif(false), 10000);
-
     fetchProducts();
-
-    return () => clearTimeout(gifTimer);
   }, [fetchProducts]);
 
   // CATEGORY TOGGLE
@@ -53,15 +78,14 @@ export default function ProductsPage() {
   };
 
   // SKELETON LOADER
-  const renderSkeletons = (count = 12) => {
-    return Array.from({ length: count }).map((_, i) => (
+  const renderSkeletons = (count = 12) =>
+    Array.from({ length: count }).map((_, i) => (
       <div key={`skeleton-${i}`} className={`${styles.card} ${styles.skeleton}`}>
         <div className={styles.image}></div>
         <h3></h3>
         <p></p>
       </div>
     ));
-  };
 
   const categories = [
     "Uncategorized",
@@ -76,9 +100,12 @@ export default function ProductsPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* --------------------- MOBILE TOP BAR --------------------- */}
+      {/* ---------------- MOBILE TOP BAR ---------------- */}
       <div className={styles.mobileTopBar}>
-        <button className={styles.filterBtn} onClick={() => setShowSidebar(true)}>
+        <button
+          className={styles.filterBtn}
+          onClick={() => setShowSidebar(true)}
+        >
           ☰ Filters
         </button>
 
@@ -95,9 +122,10 @@ export default function ProductsPage() {
         </select>
       </div>
 
-      {/* --------------------- SIDEBAR --------------------- */}
+      {/* ---------------- SIDEBAR ---------------- */}
       <div className={`${styles.sidebar} ${showSidebar ? styles.sidebarOpen : ""}`}>
         <h3 className={styles.sidebarTitle}>Categories</h3>
+
         <div className={styles.categoriesWrapper}>
           {categories.map((cat) => (
             <button
@@ -121,6 +149,7 @@ export default function ProductsPage() {
               setPriceRange({ ...priceRange, min: Number(e.target.value) })
             }
           />
+
           <label>Max Price</label>
           <input
             type="number"
@@ -131,18 +160,23 @@ export default function ProductsPage() {
           />
         </div>
 
-        <div className={styles.closeSidebar} onClick={() => setShowSidebar(false)}>
+        <div
+          className={styles.closeSidebar}
+          onClick={() => setShowSidebar(false)}
+        >
           ✖ Close
         </div>
       </div>
 
       {showSidebar && (
-        <div className={styles.backdrop} onClick={() => setShowSidebar(false)}></div>
+        <div
+          className={styles.backdrop}
+          onClick={() => setShowSidebar(false)}
+        />
       )}
 
-      {/* --------------------- MAIN CONTENT --------------------- */}
+      {/* ---------------- MAIN CONTENT ---------------- */}
       <div className={styles.mainContent}>
-        {/* SEARCH + SORT */}
         <div className={styles.topBar}>
           <input
             type="text"
@@ -151,6 +185,7 @@ export default function ProductsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+
           <select
             className={styles.sortBox}
             value={sort}
@@ -164,25 +199,38 @@ export default function ProductsPage() {
           </select>
         </div>
 
-        {/* PRODUCTS GRID */}
+        {/* ---------------- PRODUCTS GRID ---------------- */}
         <div className={styles.grid}>
-          {showGif ? (
+          {isLoading && showGif && !gifExpired && (
             <div className={styles.plantGifWrapper}>
               <img
-                src="/svg/plant-loading.gif" // your plant gif in public folder
-                alt="Loading Plants..."
+                src="/svg/plant-loading.gif"
+                alt="Loading..."
                 className={styles.plantGif}
               />
-              <p> Loading...</p>
+              <p>Loading...</p>
             </div>
-          ) : isLoading ? (
-            renderSkeletons()
-          ) : (
+          )}
+
+          {isLoading && gifExpired && renderSkeletons()}
+
+          {!isLoading &&
             products.map((p) => (
               <div key={p._id} className={styles.card}>
-                <img src={p.mainImage} alt={p.name} className={styles.image} />
-                <h3>{p.name}</h3>
+                <Link className={styles.linkscard} href={`/shop/${p.slug}`}>
+                  <img
+                    src={p.mainImage}
+                    alt={p.name}
+                    className={styles.image}
+                  />
+                </Link>
+
+                <Link className={styles.linkscard} href={`/shop/${p.slug}`}>
+                  <h3 className={styles.title}>{p.name}</h3>
+                </Link>
+
                 <p>₹{p.price}</p>
+
                 {p.inStock ? (
                   <div
                     className={styles.addToCartBtn}
@@ -191,16 +239,17 @@ export default function ProductsPage() {
                     Add to Cart
                   </div>
                 ) : (
-                  <div className={`${styles.addToCartBtn} ${styles.outOfStock}`}>
+                  <div
+                    className={`${styles.addToCartBtn} ${styles.outOfStock}`}
+                  >
                     Out of Stock
                   </div>
                 )}
               </div>
-            ))
-          )}
+            ))}
         </div>
 
-        {!isLoading && products.length === 0 && !showGif && (
+        {!isLoading && products.length === 0 && (
           <p className={styles.noResults}>No products found.</p>
         )}
       </div>
