@@ -59,10 +59,10 @@ export default async function ProductPage({ params }) {
           )}
 
           <div className={styles.meta}>
-            <p>Weight: {product.weight}</p>
+            <p>Weight: {product.weight} gm</p>
             <p>
               Size: {product.dimension?.length} × {product.dimension?.width}
-            </p>
+             cm</p>
           </div>
 
           <button className={styles.addToCart}>Add to Cart</button>
