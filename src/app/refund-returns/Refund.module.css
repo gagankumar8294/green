@@ -1,0 +1,126 @@
+/* ===============================
+   POLICY PAGE WRAPPER
+================================ */
+.policyWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+  color: var(--text-color);
+  background-color: transparent;
+}
+
+/* ===============================
+   MAIN TITLE
+================================ */
+.policyTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   LAST UPDATED TEXT
+================================ */
+.policyUpdated {
+  font-size: 0.9rem;
+  color: gray;
+  margin-bottom: 32px;
+}
+
+/* ===============================
+   SECTION BLOCK
+================================ */
+.policySection {
+  margin-bottom: 36px;
+}
+
+/* ===============================
+   SECTION HEADING
+================================ */
+.sectionTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ===============================
+   PARAGRAPH TEXT
+================================ */
+.policyText {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   LIST STYLES
+================================ */
+.policyList {
+  padding-left: 22px;
+  margin-top: 10px;
+}
+
+.policyList li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* ===============================
+   HIGHLIGHT BOX (IMPORTANT NOTES)
+================================ */
+.highlight {
+  background-color: var(--hover-bg);
+  border-left: 4px solid var(--active-border);
+  padding: 14px 16px;
+  border-radius: 6px;
+  margin-top: 14px;
+  font-size: 0.95rem;
+}
+
+/* ===============================
+   CONTACT BOX
+================================ */
+.contactBox {
+  margin-top: 40px;
+  padding: 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background-color: var(--card-bg);
+  box-shadow: 0 6px 14px var(--shadow-color);
+}
+
+/* ===============================
+   LINKS
+================================ */
+.policyLink {
+  color: var(--active-bg);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.policyLink:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+  .policyWrapper {
+    padding: 32px 16px 48px;
+  }
+
+  .policyTitle {
+    font-size: 1.9rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+
+  .policyText {
+    font-size: 0.95rem;
+  }
+}

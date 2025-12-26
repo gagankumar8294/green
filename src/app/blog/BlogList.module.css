@@ -88,3 +88,27 @@
 .dark .readMore {
   color: #111;
 }
+
+.blogExcerpt {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.75;
+
+  /* clean spacing */
+  margin-top: -4px;
+  margin-bottom: 6px;
+
+  /* smooth reading */
+  letter-spacing: 0.2px;
+
+  /* limit lines instead of ugly long text */
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blogCard:hover .blogExcerpt {
+  opacity: 0.9;
+}

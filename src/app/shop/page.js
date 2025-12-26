@@ -4,22 +4,20 @@ import { useEffect, useState, useCallback } from "react";
 import { useCart } from "../../../context/CartContext";
 
 export default function ProductsPage() {
-
   const { addToCart } = useCart();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showGif, setShowGif] = useState(true); // for first 5 seconds
 
   // FILTER STATES
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [sort, setSort] = useState("");
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 99999 });
-
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 1500 });
   const [showSidebar, setShowSidebar] = useState(false);
 
   const fetchProducts = useCallback(async () => {
     setIsLoading(true);
-
     const query = new URLSearchParams({
       search,
       sort,
@@ -29,16 +27,20 @@ export default function ProductsPage() {
     });
 
     const res = await fetch(
-      `https://green-world-backend-ydlf.onrender.com/api/products/list?${query.toString()}`
+      `http://localhost:3200/api/products/list?${query.toString()}`
     );
     const data = await res.json();
-
     setProducts(data.success ? data.products : []);
     setIsLoading(false);
   }, [search, sort, priceRange, selectedCategories]);
 
   useEffect(() => {
+    // Show GIF for first 5 seconds
+    const gifTimer = setTimeout(() => setShowGif(false), 10000);
+
     fetchProducts();
+
+    return () => clearTimeout(gifTimer);
   }, [fetchProducts]);
 
   // CATEGORY TOGGLE
@@ -74,7 +76,6 @@ export default function ProductsPage() {
 
   return (
     <div className={styles.pageWrapper}>
-
       {/* --------------------- MOBILE TOP BAR --------------------- */}
       <div className={styles.mobileTopBar}>
         <button className={styles.filterBtn} onClick={() => setShowSidebar(true)}>
@@ -95,11 +96,8 @@ export default function ProductsPage() {
       </div>
 
       {/* --------------------- SIDEBAR --------------------- */}
-      <div className={`${styles.sidebar} ${showSidebar ? styles.sidebarOpen : ""}`}
-      style={{  }} // always rendered
-      >
+      <div className={`${styles.sidebar} ${showSidebar ? styles.sidebarOpen : ""}`}>
         <h3 className={styles.sidebarTitle}>Categories</h3>
-
         <div className={styles.categoriesWrapper}>
           {categories.map((cat) => (
             <button
@@ -114,7 +112,6 @@ export default function ProductsPage() {
           ))}
         </div>
 
-        {/* PRICE FILTER */}
         <div className={styles.priceFilter}>
           <label>Min Price</label>
           <input
@@ -124,7 +121,6 @@ export default function ProductsPage() {
               setPriceRange({ ...priceRange, min: Number(e.target.value) })
             }
           />
-
           <label>Max Price</label>
           <input
             type="number"
@@ -140,14 +136,12 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {/* Backdrop for mobile */}
       {showSidebar && (
         <div className={styles.backdrop} onClick={() => setShowSidebar(false)}></div>
       )}
 
       {/* --------------------- MAIN CONTENT --------------------- */}
       <div className={styles.mainContent}>
-
         {/* SEARCH + SORT */}
         <div className={styles.topBar}>
           <input
@@ -157,7 +151,6 @@ export default function ProductsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-
           <select
             className={styles.sortBox}
             value={sort}
@@ -173,30 +166,41 @@ export default function ProductsPage() {
 
         {/* PRODUCTS GRID */}
         <div className={styles.grid}>
-          {isLoading
-            ? renderSkeletons()
-            : products.map((p) => (
-                <div key={p._id} className={styles.card}>
-                  <img src={p.mainImage} alt={p.name} className={styles.image} />
-                  <h3>{p.name}</h3>
-                  <p>₹{p.price}</p>
-                  {p.inStock ? (
-                    <div
-                      className={styles.addToCartBtn}
-                      onClick={() => addToCart(p)}
-                    >
-                      Add to Cart
-                    </div>
-                  ) : (
-                    <div className={`${styles.addToCartBtn} ${styles.outOfStock}`}>
-                      Out of Stock
-                    </div>
-                  )}
-                </div>
-              ))}
+          {showGif ? (
+            <div className={styles.plantGifWrapper}>
+              <img
+                src="/svg/plant-loading.gif" // your plant gif in public folder
+                alt="Loading Plants..."
+                className={styles.plantGif}
+              />
+              <p> Loading...</p>
+            </div>
+          ) : isLoading ? (
+            renderSkeletons()
+          ) : (
+            products.map((p) => (
+              <div key={p._id} className={styles.card}>
+                <img src={p.mainImage} alt={p.name} className={styles.image} />
+                <h3>{p.name}</h3>
+                <p>₹{p.price}</p>
+                {p.inStock ? (
+                  <div
+                    className={styles.addToCartBtn}
+                    onClick={() => addToCart(p)}
+                  >
+                    Add to Cart
+                  </div>
+                ) : (
+                  <div className={`${styles.addToCartBtn} ${styles.outOfStock}`}>
+                    Out of Stock
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
 
-        {!isLoading && products.length === 0 && (
+        {!isLoading && products.length === 0 && !showGif && (
           <p className={styles.noResults}>No products found.</p>
         )}
       </div>

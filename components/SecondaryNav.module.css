@@ -28,18 +28,44 @@
   list-style: none;
 }
 
+/* =========================
+   MAIN NAV LINK (IMPROVED HOVER)
+========================= */
 .navLink {
+  position: relative;
   text-decoration: none;
   color: var(--text-color);
   font-weight: 500;
   font-size: 15px;
-  transition: 0.25s ease;
+  padding: 4px 0;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
+/* Hover feel */
 .navLink:hover {
-  color: var(--text-hover);
+  color: #2e7d32;
+  transform: translateY(-1px);
 }
 
+/* Animated underline */
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background-color: #2e7d32;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+/* Underline appears on hover */
+.navLink:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Active link */
 .active {
   color: #2e7d32;
   position: relative;
@@ -53,4 +79,74 @@
   width: 100%;
   height: 2px;
   background-color: #2e7d32;
+}
+
+/* =========================
+   DROPDOWN STYLES (UNCHANGED)
+========================= */
+
+/* Dropdown Wrapper */
+.dropdown {
+  position: relative;
+}
+
+/* FULL WIDTH DROPDOWN — CENTERED */
+.dropdownMenu {
+  position: absolute;
+  top: 120%;
+  left: 50%;
+  transform: translateX(-40%);
+  width: 100vw;
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 12px 30px var(--shadow-color);
+  display: none;
+  z-index: 999;
+}
+
+/* Show on hover */
+.dropdown:hover .dropdownMenu {
+  display: block;
+}
+
+/* Center content like navbar */
+.dropdownInner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 24px;
+  display: flex;
+  gap: 40px;
+}
+
+/* CATEGORY LINKS GRID */
+.dropdownGrid {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 14px 24px;
+}
+
+/* CATEGORY LINK */
+.dropdownItem {
+  font-size: 14px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.dropdownItem:hover {
+  color: #2e7d32;
+  transform: translateX(4px);
+}
+
+/* IMAGE PLACEHOLDER AREA */
+.dropdownImageArea {
+  flex: 1;
+  min-height: 220px;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(46, 125, 50, 0.08),
+    rgba(46, 125, 50, 0.02)
+  );
 }

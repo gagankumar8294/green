@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./BlogList.module.css";
 
-const API = "https://green-world-backend-ydlf.onrender.com/api/blogs";
+const API = "http://localhost:3200/api/blogs";
 
 export default async function BlogListPage() {
   const res = await fetch(API, { cache: "no-store" });
@@ -17,13 +17,19 @@ export default async function BlogListPage() {
 
       <div className={styles.blogGrid}>
         {blogs.map((blog) => {
-          const title =
-            blog.sections.find((s) => s.type === "title")?.value ||
-            "Untitled";
+          const title = blog.title;
 
           const image =
             blog.sections.find((s) => s.type === "image")?.value ||
             "/placeholder.jpg";
+
+          const paragraph =
+            blog.sections.find((s) => s.type === "paragraph")?.value || "";
+
+          const excerpt =
+            paragraph.length > 120
+              ? paragraph.slice(0, 400) + "..."
+              : paragraph;
 
           return (
             <div key={blog._id} className={styles.blogCard}>
@@ -33,6 +39,8 @@ export default async function BlogListPage() {
 
               <div className={styles.cardContent}>
                 <h2 className={styles.blogTitle}>{title}</h2>
+
+                <p className={styles.blogExcerpt}>{excerpt}</p>
 
                 <Link href={`/blog/${blog.slug}`} className={styles.readMore}>
                   Read More →

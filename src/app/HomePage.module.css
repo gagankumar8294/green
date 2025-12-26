@@ -191,3 +191,66 @@
 .cta h2 {
   margin-bottom: 20px;
 }
+
+/* ===============================
+   HERO – Mobile & Small Screens
+   =============================== */
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 60px 6%;
+  }
+
+  .heroImage {
+    order: -1; /* Image comes first */
+  }
+
+  .heroImage img {
+    max-width: 320px;
+    margin: 0 auto 30px;
+  }
+
+  .heroContent h1 {
+    font-size: 2.5rem;
+  }
+
+  .heroContent p {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+
+  .heroButtons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* ===============================
+   HERO – Mobile Phones
+   =============================== */
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 50px 5%;
+  }
+
+  .heroContent h1 {
+    font-size: 2.1rem;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .primaryBtn,
+  .secondaryBtn {
+    width: 50%;
+  }
+
+  .primaryBtn {
+    margin-bottom: -50px !important;
+  }
+}

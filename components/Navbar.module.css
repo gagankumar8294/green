@@ -783,3 +783,28 @@
 .dropdownBtn:hover {
   background: rgba(0, 0, 0, 0.06);
 }
+
+
+/* Mobile menu icon color in dark mode */
+.dark .menuIcon {
+  fill: #2e2424;
+  stroke: #312828;
+  color: #f7f7f7;
+}
+
+.closeButton {
+  margin-left: 200px;
+}
+
+/* .mobileMenuList Link {
+  text-decoration: none;
+} */
+
+/* Remove default link styles in mobile menu */
+.mobileMenuList a {
+  color: inherit;          /* uses theme text color */
+  text-decoration: none;  /* remove underline */
+  display: block;         /* full tap area */
+  width: 100%;
+}
+

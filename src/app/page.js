@@ -1,3 +1,5 @@
+import ServiceHighlights from "../../components/Homepage/serviceHighlights";
+import ContactPage from "./contact-us/page";
 import styles from "./HomePage.module.css";
 import Link from "next/link";
 
@@ -33,7 +35,7 @@ export default function Home() {
       </section>
 
       {/* CATEGORIES */}
-      <section className={styles.categories}>
+      {/* <section className={styles.categories}>
         <h2>Shop by Category</h2>
         <div className={styles.categoryGrid}>
           {[
@@ -50,10 +52,10 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* FEATURED PLANTS */}
-      <section className={styles.featured}>
+      {/* <section className={styles.featured}>
         <h2>Best Sellers</h2>
         <div className={styles.productGrid}>
           {[1, 2, 3, 4].map((_, i) => (
@@ -65,26 +67,10 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      {/* WHY CHOOSE US */}
-      <section className={styles.whyUs}>
-        <h2>Why Choose Us?</h2>
-        <div className={styles.features}>
-          <div className={styles.featureCard}>
-            🌱 <h3>Healthy Plants</h3>
-            <p>Grown with expert care & quality soil.</p>
-          </div>
-          <div className={styles.featureCard}>
-            🚚 <h3>Fast Delivery</h3>
-            <p>Fresh plants delivered safely.</p>
-          </div>
-          <div className={styles.featureCard}>
-            💧 <h3>Plant Care Support</h3>
-            <p>Free guidance from experts.</p>
-          </div>
-        </div>
-      </section>
+      <ServiceHighlights />
+      <ContactPage />
 
       {/* CTA */}
       {/* <section className={styles.cta}>

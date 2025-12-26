@@ -1,5 +1,3 @@
-
-
 /* -------------------------
    PAGE WRAPPER
 -------------------------- */
@@ -270,6 +268,40 @@
   .topBar {
     display: none;
   }
+
+  /* Make Add to Cart always visible on mobile */
+  .addToCartBtn {
+    position: static;
+    transform: none;
+    opacity: 1;
+    margin-top: 10px;
+  }
+
+  /* Disable hover slide effect on mobile */
+  .card:hover .addToCartBtn {
+    bottom: auto;
+  }
+
+  /* Restore text visibility */
+  .card h3,
+  .card p {
+    opacity: 1;
+  }
+
+  /* 2 products per row on mobile */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Adjust card & image size */
+  .card {
+    padding: 10px;
+  }
+
+  .image {
+    height: 160px;
+  }
 }
 
 /* Products.module.css */
@@ -281,3 +313,63 @@
   padding: 0.5rem;
   border-radius: 5px;
 }
+
+/* Extra small screens <480px */
+@media (max-width: 480px) {
+  .grid {
+    gap: 10px;
+  }
+
+  .image {
+    height: 140px;
+  }
+
+  .addToCartBtn {
+    padding: 10px 0;
+    font-size: 14px;
+  }
+}
+
+/* Skeleton Animation */
+.skeleton {
+  background: linear-gradient(
+    -90deg,
+    #e0e0e0 0%,
+    #f0f0f0 50%,
+    #e0e0e0 100%
+  );
+  background-size: 400% 400%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Plant GIF Wrapper */
+.plantGifWrapper {
+ width: 100%;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column; /* 👈 stack GIF + text */
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  gap: 12px; /* 👈 space between gif & text */
+  
+}
+
+.plantGifWrapper p {
+  font-size: 14px;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+}
+
+.plantGif {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+

@@ -7,6 +7,7 @@ import SecondaryNav from "../../components/SecondaryNav";
 import Breadcrumb from "../../components/Breadcrumb";
 import { CartProvider } from "../../context/CartContext";
 import Footer from "../../components/footer/Footer";
+import WhatsAppFloat from "../../components/WhatsAppFloating/WhatsAppFloat";
 
 export const metadata = {
   title: "Create Next App",
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
               <SecondaryNav />
               <Breadcrumb />
               {children}
+              <WhatsAppFloat />
               <Footer />
               <ThemeToggle />
             </CartProvider>

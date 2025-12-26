@@ -1,111 +1,98 @@
-/* BlogPage.module.css */
-
-/* Container for the blog content */
 .blogSection {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
-  line-height: 1.8;
+  max-width: 760px;               /* narrower = better reading */
+  margin: 2.5rem auto;
+  padding: 0 1.25rem;
+  line-height: 1.75;
   color: var(--text-color);
-  transition: color 0.4s ease, background-color 0.4s ease;
 }
 
-/* Title */
-.blogSection h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+/* Meta (posted / updated) */
+.meta {
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
   color: var(--text-color);
-  text-transform: capitalize;
+  opacity: 0.7;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
 }
 
 /* Headings */
-.blogSection h2,
-.blogSection h3,
-.blogSection h4 {
-  margin: 1.2rem 0;
-  color: var(--text-color);
+.blogSection h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  line-height: 1.25;
+}
+
+.blogSection h2 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-top: 2.2rem;
+  margin-bottom: 0.9rem;
+}
+
+.blogSection h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 1.6rem;
+  margin-bottom: 0.7rem;
 }
 
 /* Paragraphs */
 .blogSection p {
-  margin-bottom: 1.2rem;
   font-size: 1rem;
+  margin-bottom: 1.2rem;
   color: var(--text-color);
-  line-height: 1.8;
+  opacity: 0.85;
+  letter-spacing: 0.2px;
 }
 
-/* Blog images */
+/* Images */
 .blogSection img {
-  width: 100%;             /* full width of the container */
-  max-width: 700px;        /* limits image on large screens */
-  height: auto;            /* maintain aspect ratio */
-  display: block;          /* removes inline gap */
-  margin: 1rem auto;       /* centers image with spacing */
-  border-radius: 8px;      /* rounded corners */
-  box-shadow: 0 4px 8px var(--shadow-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  object-fit: cover;       /* keeps image cropped nicely if needed */
-}
-
-.blogSection img:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px var(--shadow-color);
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 /* Links */
 .blogSection a {
-  color: var(--text-color);
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  color: var(--theme-add-btn);
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .blogSection a:hover {
-  color: var(--text-hover);
+  text-decoration: underline;
 }
 
-/* Responsive typography */
-@media screen and (max-width: 768px) {
+/* Comments spacing */
+.commentsSection {
+  margin-top: 4rem;
+}
+
+/* 📱 Mobile Optimization */
+@media (max-width: 768px) {
   .blogSection {
-    padding: 1.5rem;
+    padding: 0 1rem;     /* prevents edge-to-edge text */
   }
 
   .blogSection h1 {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 
   .blogSection h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .blogSection h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .blogSection p {
-    font-size: 0.95rem;
+    font-size: 0.96rem;
   }
-
-    .blogSection img {
-        max-width: 100%;       /* ensures image fits mobile width */
-        margin: 1rem 0;        /* spacing on mobile */
-    }
-}
-
-/* Blockquote styling (optional) */
-.blogSection blockquote {
-  border-left: 4px solid var(--border-color);
-  padding-left: 1rem;
-  margin: 1rem 0;
-  font-style: italic;
-  color: var(--text-color);
-}
-
-/* Code styling (optional) */
-.blogSection code {
-  background-color: var(--input-bg);
-  color: var(--text-color);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.95rem;
 }

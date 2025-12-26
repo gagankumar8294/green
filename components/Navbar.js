@@ -1,5 +1,6 @@
 "use client";
 import { useMemo } from "react";
+import Link from "next/link";
 import React, { useState, useContext, useRef } from "react";
 import { useEffect } from "react";
 import styles from "./Navbar.module.css";
@@ -237,7 +238,7 @@ useEffect(() => {
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.phoneIcon} viewBox="0 0 24 24" fill="currentColor">
           <path d="M6.62 10.79a15.09 15.09 0 006.59 6.59l2.2-2.2a1 1 0 011-.27 11.36 11.36 0 003.56.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.27 1z" />
         </svg>
-        <span className={styles.callText}>Call us: +91 98442 99703</span>
+        <span className={styles.callText}>Call us: +91 6362209490</span>
       </div>
 
       {/* ======= Mobile Left Section ======= */}
@@ -253,12 +254,16 @@ useEffect(() => {
             </svg>
           )}
         </button>
-        <img src="/logo.webp" alt="Logo" className={styles.mobileLogo} />
+        <Link href="/" aria-label="Go to homepage">
+          <img src="/logo.webp" alt="Logo" className={styles.mobileLogo} />
+        </Link>
       </div>
 
       {/* ======= Center Section (Logo) ======= */}
       <div className={styles.centerSection}>
-        <img src="/logo.webp" alt="Logo" className={styles.logo} />
+        <Link href="/" aria-label="Go to homepage">
+          <img src="/logo.webp" alt="Logo" className={styles.logo} />
+        </Link>
       </div>
 
       {/* ======= Right Section (Icons) ======= */}
@@ -371,16 +376,40 @@ useEffect(() => {
             <path d="M18.3 5.71a1 1 0 00-1.41 0L12 10.59 7.11 5.7A1 1 0 105.7 7.11L10.59 12l-4.9 4.89a1 1 0 101.41 1.41L12 13.41l4.89 4.89a1 1 0 001.41-1.41L13.41 12l4.89-4.89a1 1 0 000-1.4z" />
           </svg>
         </button>
-        <ul>
-          <li>Home</li>
-          <li>Categories</li>
-          <li>Shop</li>
-          <li>Blog</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Wedding Favours</li>
-          <li>Corporate Gifting</li>
+        <ul className={styles.mobileMenuList}>
+          <li onClick={toggleMenu}>
+            <Link href="/">Home</Link>
+          </li>
+
+          <li onClick={toggleMenu}>
+            <Link href="/categories">Categories</Link>
+          </li>
+
+          <li onClick={toggleMenu}>
+            <Link href="/shop">Shop</Link>
+          </li>
+
+          <li onClick={toggleMenu}>
+            <Link href="/blog">Blog</Link>
+          </li>
+
+          <li onClick={toggleMenu}>
+            <Link href="/about">About Us</Link>
+          </li>
+
+          <li onClick={toggleMenu}>
+            <Link href="/contact">Contact Us</Link>
+          </li>
+
+          {/* <li onClick={toggleMenu}>
+            <Link href="/wedding-favours">Wedding Favours</Link>
+          </li>
+
+          <li onClick={toggleMenu}>
+            <Link href="/corporate-gifting">Corporate Gifting</Link>
+          </li> */}
         </ul>
+
       </div>
     </nav>
     {/* CART SIDEBAR */}

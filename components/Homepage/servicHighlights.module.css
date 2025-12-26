@@ -1,0 +1,76 @@
+/* ===============================
+   PLANT PROMISE SECTION
+   =============================== */
+
+.plantPromise {
+  padding: 70px 8%;
+  background: var(--sidebar-bg);
+}
+
+.promiseGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.promiseCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 30px 22px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.promiseCard:hover {
+  transform: translateY(-6px);
+  background: var(--hover-bg);
+}
+
+.promiseIcon {
+  font-size: 2.6rem;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.promiseCard h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.promiseCard p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ===============================
+   TABLET & MOBILE (2x2 GRID)
+   =============================== */
+
+@media (max-width: 768px) {
+  .promiseGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===============================
+   SMALL MOBILE POLISH
+   =============================== */
+
+@media (max-width: 480px) {
+  .plantPromise {
+    padding: 55px 6%;
+  }
+
+  .promiseIcon {
+    font-size: 2.3rem;
+  }
+
+  .promiseCard h3 {
+    font-size: 1rem;
+  }
+
+  .promiseCard p {
+    font-size: 0.9rem;
+  }
+}
