@@ -9,7 +9,7 @@ export default async function BlogPage({ params }) {
   if (!slug) return <p>Blog not found.</p>;
 
   const res = await fetch(
-    `http://localhost:3200/api/blogs/${slug.toLowerCase()}`,
+    `https://green-world-backend-ydlf.onrender.com/api/blogs/${slug.toLowerCase()}`,
     { cache: "no-store" }
   );
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./BlogList.module.css";
 
-const API = "http://localhost:3200/api/blogs";
+const API = "https://green-world-backend-ydlf.onrender.com/api/blogs";
 
 export default async function BlogListPage() {
   const res = await fetch(API, { cache: "no-store" });

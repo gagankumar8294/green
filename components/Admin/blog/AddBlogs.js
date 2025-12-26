@@ -34,7 +34,7 @@ export default function AddBlogs() {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch("http://localhost:3200/api/blogs");
+      const res = await fetch("https://green-world-backend-ydlf.onrender.com/api/blogs");
       const data = await res.json();
       setBlogs(data);
     } catch (err) {
@@ -72,7 +72,7 @@ export default function AddBlogs() {
 
   const deleteBlog = async (id) => {
     try {
-      await fetch(`http://localhost:3200/api/blogs/${id}`, { method: "DELETE" });
+      await fetch(`https://green-world-backend-ydlf.onrender.com/api/blogs/${id}`, { method: "DELETE" });
       fetchBlogs();
     } catch (err) {
       console.error("Error deleting blog:", err);
@@ -111,8 +111,8 @@ export default function AddBlogs() {
     };
 
     const url = isEditing
-      ? `http://localhost:3200/api/blogs/${selectedId}`
-      : "http://localhost:3200/api/blogs";
+      ? `https://green-world-backend-ydlf.onrender.com/api/blogs/${selectedId}`
+      : "https://green-world-backend-ydlf.onrender.com/api/blogs";
 
     const method = isEditing ? "PUT" : "POST";
 
