@@ -44,6 +44,8 @@ export default function AddProductForm() {
     width: "",
   });
 
+  const [features, setFeatures] = useState([""]);
+
   // ✅ FIXED — initialize categories state properly
   const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -108,6 +110,8 @@ export default function AddProductForm() {
         width: formData.width,
       },
       categories: selectedCategories, // ✅ BACKEND-READY
+      // ✅ ADD THIS
+      features: features.filter((f) => f.trim() !== ""),
     };
 
     try {
@@ -169,6 +173,25 @@ export default function AddProductForm() {
       {/* Description */}
       <textarea className={styles.textarea} name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
       {errors.description && <p className={styles.errorText}>{errors.description}</p>}
+
+      <h4>Product Features</h4>
+
+      {features.map((f, i) => (
+        <input
+          key={i}
+          value={f}
+          placeholder={`Feature ${i + 1}`}
+          onChange={(e) => {
+            const copy = [...features];
+            copy[i] = e.target.value;
+            setFeatures(copy);
+          }}
+        />
+      ))}
+
+      <button type="button" onClick={() => setFeatures([...features, ""])}>
+        + Add Point
+      </button>
 
       {/* Other fields */}
       <input className={styles.input} name="quantity" placeholder="Quantity" value={formData.quantity} onChange={handleChange} />
