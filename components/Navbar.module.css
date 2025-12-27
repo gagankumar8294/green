@@ -808,3 +808,15 @@
   width: 100%;
 }
 
+
+/* Navbar.module.css */
+
+/* My Orders button in dropdown */
+.dropdownBtn {
+  color: var(--text-color); /* default to theme text color */
+}
+
+/* Dark theme override */
+.dark .dropdownBtn {
+  color: #ffffff; /* force white text in dark mode */
+}
