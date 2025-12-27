@@ -1,4 +1,5 @@
 import ServiceHighlights from "../../components/Homepage/serviceHighlights";
+import AboutUs from "./about-us/page";
 import ContactPage from "./contact-us/page";
 import styles from "./HomePage.module.css";
 import Link from "next/link";
@@ -140,6 +141,7 @@ export default function Home() {
       </section> */}
 
       <ServiceHighlights />
+      <AboutUs />
       <ContactPage />
 
       {/* CTA */}
