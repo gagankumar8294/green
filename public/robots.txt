@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:/admin
+Disallow:/my-orders
+
+sitemap: https://happygreenery.in/sitemap.xml
