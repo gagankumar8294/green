@@ -394,11 +394,11 @@ useEffect(() => {
           </li>
 
           <li onClick={toggleMenu}>
-            <Link href="/about">About Us</Link>
+            <Link href="/about-us">About Us</Link>
           </li>
 
           <li onClick={toggleMenu}>
-            <Link href="/contact">Contact Us</Link>
+            <Link href="/contact-us">Contact Us</Link>
           </li>
 
           {/* <li onClick={toggleMenu}>
