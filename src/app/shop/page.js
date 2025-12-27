@@ -4,6 +4,20 @@ import { useEffect, useState, useCallback } from "react";
 import { useCart } from "../../../context/CartContext";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Shop Indoor & Outdoor Plants Online in Bangalore | Delivery Across India",
+  description:
+    "Buy indoor plants, outdoor plants, succulents & air-purifying plants online in Bangalore. Fresh & affordable.",
+
+  openGraph: {
+    title: "Shop Plants Online | Happy Greenery",
+    description:
+      "Explore a wide range of indoor & outdoor plants with fast delivery in Bangalore.",
+    images: ["/og-home.png"],
+  },
+};
+
+
 export default function ProductsPage() {
   const { addToCart } = useCart();
 

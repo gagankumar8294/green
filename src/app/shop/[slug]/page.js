@@ -2,6 +2,55 @@
 import styles from "./ProductPage.module.css";
 import ReactMarkdown from "react-markdown";
 
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+
+  let product;
+
+  try {
+    const res = await fetch(
+      `https://green-world-backend-ydlf.onrender.com/api/products/${slug}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) return { title: "Product not found" };
+
+    const data = await res.json();
+    if (!data?.success || !data?.product) return { title: "Product not found" };
+
+    product = data.product;
+  } catch (error) {
+    console.error("❌ Fetch product error for metadata:", error);
+    return { title: "Product not found" };
+  }
+
+  return {
+    title: `${product.name} | Happy Greenery`,
+    description: product.shortDescription || "Buy plants online from Happy Greenery",
+    openGraph: {
+      title: product.name,
+      description: product.shortDescription,
+      url: `https://www.happygreenery.in/shop/${slug}`,
+      images: [
+        {
+          url: product.mainImage,
+          width: 1200,
+          height: 630,
+          alt: product.name,
+        },
+      ],
+      type: "product",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name,
+      description: product.shortDescription,
+      images: [product.mainImage],
+    },
+  };
+}
+
+
 export default async function ProductPage({ params }) {
   const { slug } = await params;
 

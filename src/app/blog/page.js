@@ -3,6 +3,18 @@ import styles from "./BlogList.module.css";
 
 const API = "https://green-world-backend-ydlf.onrender.com/api/blogs";
 
+export const metadata = {
+  title: "Plant Care Blog | Gardening Tips & Guides",
+  description:
+    "Read plant care tips, gardening guides & indoor plant ideas from Happy Greenery experts.",
+
+  openGraph: {
+    title: "Plant Care Blog | Happy Greenery",
+    images: ["/og-home.png"],
+  },
+};
+
+
 export default async function BlogListPage() {
   const res = await fetch(API, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch blogs");

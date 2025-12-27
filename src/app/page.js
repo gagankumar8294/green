@@ -4,9 +4,9 @@ import styles from "./HomePage.module.css";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore",
+  title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Bangalore | Delivery Across India",
   description:
-    "Buy healthy indoor & outdoor plants online from Happy Greenery | Banglore. Fresh plants, easy care, fast delivery, and affordable prices. Bring nature home today 🌿",
+    "Buy healthy indoor & outdoor plants online from Happy Greenery | Bangalore. Fresh plants, easy care, fast delivery, and affordable prices. Bring nature home today 🌿",
 
   keywords: [
     "buy plants online",
@@ -41,7 +41,7 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore",
+    title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Bangalore | Delivery Across India",
     description:
       "Shop healthy indoor & outdoor plants online | Banglore. Fresh, affordable & doorstep delivery across India 🌱",
     url: "https://www.happygreenery.in",
@@ -60,7 +60,7 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore",
+    title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore | Delivery Across India",
     description:
       "Fresh indoor & outdoor plants delivered to your home. Shop now at Happy Greenery 🌿",
     images: ["https://www.happygreenery.in/og-home.png"],
