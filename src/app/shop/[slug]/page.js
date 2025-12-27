@@ -1,7 +1,7 @@
 // app/shop/[slug]/page.js
 import styles from "./ProductPage.module.css";
 import ReactMarkdown from "react-markdown";
-
+import ProductImages from "./ProductImages";
 
 
 export default async function ProductPage({ params }) {
@@ -36,13 +36,13 @@ export default async function ProductPage({ params }) {
       {/* TOP GRID SECTION */}
       <div className={styles.productPage}>
         {/* IMAGE */}
-        <div className={styles.imageWrapper}>
-          <img
-            src={product.mainImage}
-            alt={product.name}
-            className={styles.image}
+        {/* <div className={styles.imageWrapper}> */}
+          <ProductImages
+            mainImage={product.mainImage}
+            subImages={product.subImages}
+            name={product.name}
           />
-        </div>
+        {/* </div> */}
 
         {/* DETAILS */}
         <div className={styles.details}>

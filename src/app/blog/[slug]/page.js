@@ -4,6 +4,7 @@ import CommentsSection from "../../../../components/comments/CommentsSection";
 import { timeAgo } from "../../../../utils/timeAgo";
 import styles from "./BlogPage.module.css";
 
+
 export default async function BlogPage({ params }) {
   const { slug } = await params;
   if (!slug) return <p>Blog not found.</p>;

@@ -38,6 +38,7 @@
   font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
+  margin-top: 40px;
 }
 
 /* PRICE */
@@ -159,6 +160,7 @@
 
   .title {
     font-size: 24px;
+    margin-top: 0px;
   }
 
   .price {
@@ -169,4 +171,31 @@
     margin: 20px 16px 40px;
     padding: 20px;
   }
+  
+}
+
+
+.imageButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.imageBtn {
+  border: 2px solid transparent;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.imageBtn img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.activeImage {
+  border-color: #2e7d32;
 }
