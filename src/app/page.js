@@ -80,8 +80,8 @@ export default function Home() {
             Bring <span>Nature</span> Home
           </h1>
           <p>
-            Discover healthy indoor & outdoor plants delivered fresh to your
-            doorstep.
+            Buy healthy indoor & outdoor plants online with fast delivery.
+            Perfect for home, office & gifting.
           </p>
           <div className={styles.heroButtons}>
             <Link href="/shop" className={styles.LinkButton}>
@@ -97,7 +97,10 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.heroImage}>
-          <img src="/hero-plant.png" alt="Indoor-Plant-grrenplants" />
+          <img 
+            src="/hero-plant.png" 
+            alt="Buy indoor and outdoor plants online from Happy Greenery"
+            loading="eager" />
         </div>
       </section>
 
