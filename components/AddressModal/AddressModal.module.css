@@ -132,3 +132,20 @@
     padding: 18px;
   }
 }
+
+
+/* === DARK MODE INPUT FIX === */
+.dark .modal input {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+.dark .modal input::placeholder {
+  color: #aaa;
+}
+
+.dark .modal input:focus {
+  background-color: var(--input-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--active-border);
+}
