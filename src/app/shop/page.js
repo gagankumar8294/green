@@ -4,11 +4,13 @@ import { useEffect, useState, useCallback } from "react";
 import { useCart } from "../../../context/CartContext";
 import Link from "next/link";
 
+// app/shop/page.js
+import ProductsPage from './ProductsPage'; // client component
+
 export const metadata = {
   title: "Shop Indoor & Outdoor Plants Online in Bangalore | Delivery Across India",
   description:
     "Buy indoor plants, outdoor plants, succulents & air-purifying plants online in Bangalore. Fresh & affordable.",
-
   openGraph: {
     title: "Shop Plants Online | Happy Greenery",
     description:
