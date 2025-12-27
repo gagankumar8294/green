@@ -272,3 +272,7 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+export default function ShopPageWrapper() {
+  return <ProductsPage />;
+}
