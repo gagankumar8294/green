@@ -3,6 +3,73 @@ import ContactPage from "./contact-us/page";
 import styles from "./HomePage.module.css";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore",
+  description:
+    "Buy healthy indoor & outdoor plants online from Happy Greenery | Banglore. Fresh plants, easy care, fast delivery, and affordable prices. Bring nature home today 🌿",
+
+  keywords: [
+    "buy plants online",
+    "indoor plants online",
+    "outdoor plants",
+    "house plants",
+    "succulent plants",
+    "air purifying plants",
+    "plant delivery india",
+    "happy greenery plants",
+    "online nursery india",
+  ],
+
+  authors: [{ name: "Happy Greenery" }],
+  creator: "Happy Greenery",
+  publisher: "Happy Greenery",
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  alternates: {
+    canonical: "https://www.happygreenery.in",
+  },
+
+  openGraph: {
+    title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore",
+    description:
+      "Shop healthy indoor & outdoor plants online | Banglore. Fresh, affordable & doorstep delivery across India 🌱",
+    url: "https://www.happygreenery.in",
+    siteName: "Happy Greenery",
+    images: [
+      {
+        url: "https://www.happygreenery.in/og-home.png",
+        width: 1200,
+        height: 630,
+        alt: "Happy Greenery - Buy Plants Online",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Buy Indoor & Outdoor Plants Online | Happy Greenery | Banglore",
+    description:
+      "Fresh indoor & outdoor plants delivered to your home. Shop now at Happy Greenery 🌿",
+    images: ["https://www.happygreenery.in/og-home.png"],
+  },
+
+  category: "Ecommerce",
+};
+
+
 export default function Home() {
   return (
     <main className={styles.home}>
