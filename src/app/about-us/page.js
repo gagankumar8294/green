@@ -45,7 +45,7 @@ const AboutUs = () => {
           <span className={styles.statLabel}>Years</span>
         </div>
         <div className={styles.stat}>
-          <span className={styles.statNumber}>1,000+</span>
+          <span className={styles.statNumber}>100+</span>
           <span className={styles.statLabel}>Happy Customers</span>
         </div>
         <div className={styles.stat}>

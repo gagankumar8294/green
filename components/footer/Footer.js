@@ -57,7 +57,7 @@ export default function Footer() {
 
     {/* Facebook */}
     <a
-      href="https://facebook.com"
+      href="https://www.facebook.com/people/HappyGreenery/61585914081304/"
       target="_blank"
       rel="noreferrer"
       aria-label="Facebook"
@@ -70,7 +70,7 @@ export default function Footer() {
 
     {/* WhatsApp */}
     <a
-      href="https://wa.me/919999999999"
+      href="https://wa.me/+916362209490"
       target="_blank"
       rel="noreferrer"
       aria-label="WhatsApp"
