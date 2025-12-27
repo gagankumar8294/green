@@ -55,9 +55,7 @@ export default function SecondaryNav() {
                       {categoryLinks.map((item) => (
                         <Link
                           key={item}
-                          href={`/categories/${item
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
+                          href={`/shop?category=${item.toLowerCase().replace(/\s+/g, "-")}`}
                           className={styles.dropdownItem}
                         >
                           {item}

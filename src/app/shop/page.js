@@ -3,6 +3,7 @@ import styles from "./Products.module.css";
 import { useEffect, useState, useCallback } from "react";
 import { useCart } from "../../../context/CartContext";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function ProductsPage() {
   const { addToCart } = useCart();
@@ -20,6 +21,9 @@ export default function ProductsPage() {
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1500 });
   const [showSidebar, setShowSidebar] = useState(false);
+
+  const searchParams = useSearchParams();
+  const categoryFromURL = searchParams.get("category");
 
   const fetchProducts = useCallback(async () => {
     setIsLoading(true);
@@ -97,6 +101,24 @@ export default function ProductsPage() {
     "Low Maintenance Plants",
     "succulents",
   ];
+
+  // helper
+const normalizeCategory = (slug) => {
+  return categories.find(
+    (cat) => cat.toLowerCase().replace(/\s+/g, "-") === slug
+  );
+};
+
+useEffect(() => {
+  if (categoryFromURL) {
+    const matchedCategory = normalizeCategory(categoryFromURL);
+
+    if (matchedCategory) {
+      setSelectedCategories([matchedCategory]);
+    }
+  }
+}, [categoryFromURL]);
+
 
   return (
     <div className={styles.pageWrapper}>
